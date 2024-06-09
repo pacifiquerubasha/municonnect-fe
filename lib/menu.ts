@@ -6,7 +6,8 @@ import {
     Calendar,
     UserRoundCheck,
     LayoutDashboard,
-    Building
+    Building,
+    Package
   } from "lucide-react";
   
   
@@ -30,7 +31,7 @@ export const menu:Menu = {
         {
             "name": "Datasets",
             "url": "/datasets",
-            icon: FileSpreadsheet
+            icon: Package
         },
         {
             "name": "Articles",
@@ -52,7 +53,7 @@ export const menu:Menu = {
         {
             "name": "Datasets",
             "url": "/datasets",
-            icon: FileSpreadsheet
+            icon: Package
         },
         {
             "name": "Articles",
@@ -79,7 +80,7 @@ export const menu:Menu = {
         {
             "name": "Datasets",
             "url": "/datasets",
-            icon: FileSpreadsheet
+            icon: Package
         },
         {
             "name": "Articles",

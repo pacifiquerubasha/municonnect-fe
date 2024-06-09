@@ -48,6 +48,7 @@ import {
 
 import { menu, MenuItem } from "@/lib/menu";
 import { usePathname } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 
 type BreadcrumbItem = {
   title: string;
@@ -173,18 +174,18 @@ export const MainProvider: React.FC<Props> = ({ breadcrumbs, children }) => {
               <BreadcrumbList>
                 {breadcrumbs.map((item, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       <BreadcrumbItem>
                         <BreadcrumbLink
                           asChild={index < breadcrumbs.length - 1}
                         >
-                          <Link href={item.href || "#"}>{item.title}</Link>
+                          {/* <Link href={item.href || "#"}>{item.title}</Link> */}
                         </BreadcrumbLink>
                       </BreadcrumbItem>
                       {index < breadcrumbs.length - 1 && (
                         <BreadcrumbSeparator />
                       )}
-                    </>
+                    </div>
                   );
                 })}
               </BreadcrumbList>
@@ -197,31 +198,8 @@ export const MainProvider: React.FC<Props> = ({ breadcrumbs, children }) => {
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
               />
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-                >
-                  <Image
-                    src="/girl.jpg"
-                    width={36}
-                    height={36}
-                    alt="Avatar"
-                    className="overflow-hidden rounded-full"
-                  />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+
+            <UserButton />
           </header>
 
           {children}
