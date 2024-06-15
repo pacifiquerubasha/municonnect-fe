@@ -65,8 +65,8 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import Aside from "@/components/custom/layout/Aside";
-import Header from "@/components/custom/layout/Header";
+import Aside from "@/components/custom/layout/app/Aside";
+import Header from "@/components/custom/layout/app/Header";
 import { sampleDashboardDatasets } from "@/samples/samples";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";

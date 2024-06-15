@@ -38,8 +38,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Space, Upload, message } from "antd";
 
-import Aside from "@/components/custom/layout/Aside";
-import Header from "@/components/custom/layout/Header";
+import Aside from "@/components/custom/layout/app/Aside";
+import Header from "@/components/custom/layout/app/Header";
 import { UploadIcon } from "@radix-ui/react-icons";
 
 import type { UploadProps } from "antd";
