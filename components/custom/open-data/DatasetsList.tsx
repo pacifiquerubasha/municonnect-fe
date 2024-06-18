@@ -44,7 +44,7 @@ const DatasetsList = () => {
             </div>
             <div className="flex gap-2">
               <Button asChild size="sm" className="gap-1">
-                <Link href="#">
+                <Link href="/open-data/482942br3i2r89u2d84f42984">
                   View More
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>

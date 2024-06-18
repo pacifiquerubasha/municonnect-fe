@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -79,19 +79,24 @@
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
   .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-}
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .text-2xs{
+    font-size: 0.5rem;
+  }
 }
 
-
-.hero{
-  font-family: 'Bebas Neue', cursive !important;
+.hero {
+  font-family: "Bebas Neue", cursive !important;
   letter-spacing: 2px;
+}
 
+.inter * {
+  font-family: "Inter", sans-serif;
 }
 
 .fsac4 {

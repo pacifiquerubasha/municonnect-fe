@@ -53,7 +53,7 @@ const Team = () => {
                                             cy="45"
                                             r="45"
                                             fill="#13C296"
-                                            fill-opacity="0.11"
+                                            fillOpacity="0.11"
                                             />
                                     </svg>
                                 </span>
@@ -243,7 +243,7 @@ const Team = () => {
                                             cy="45"
                                             r="45"
                                             fill="#13C296"
-                                            fill-opacity="0.11"
+                                            fillOpacity="0.11"
                                             />
                                     </svg>
                                 </span>
@@ -433,7 +433,7 @@ const Team = () => {
                                             cy="45"
                                             r="45"
                                             fill="#13C296"
-                                            fill-opacity="0.11"
+                                            fillOpacity="0.11"
                                             />
                                     </svg>
                                 </span>
@@ -623,7 +623,7 @@ const Team = () => {
                                             cy="45"
                                             r="45"
                                             fill="#13C296"
-                                            fill-opacity="0.11"
+                                            fillOpacity="0.11"
                                             />
                                     </svg>
                                 </span>

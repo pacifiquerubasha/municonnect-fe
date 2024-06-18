@@ -623,7 +623,6 @@ const About = () => {
                   Start your journey towards data-driven decision-making today.
                 </p>
                 <a
-                  href="javascript:void(0)"
                   className="inline-flex items-center justify-center py-3 text-base font-medium text-center text-white border border-transparent rounded-md px-7 bg-primary hover:bg-opacity-90"
                 >
                   Get Started
