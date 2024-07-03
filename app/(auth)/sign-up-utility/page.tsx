@@ -20,11 +20,19 @@ import { createUser } from "@/services/endpoints/users";
 import useNotify from "@/hooks/useNotify";
 import { useRouter } from "next/navigation";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function SignUpUtility() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<any>();
   const { user } = useUser();
@@ -39,6 +47,7 @@ function SignUpUtility() {
       profilePicture: user?.imageUrl,
       authId: user?.id,
       fullName: user?.fullName,
+      role: values.role,
     };
 
     try {
@@ -62,13 +71,28 @@ function SignUpUtility() {
       className="h-screen flex"
     >
       {contextHolder}
-      <Card className="m-auto max-w-sm">
+      <Card className="m-auto max-w-xl w-[100%]">
         <CardHeader>
           <CardTitle className="text-xl">Bio</CardTitle>
           <CardDescription>Tell us a little about yourself</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
+            <div className="grid gap-3 mb-4">
+              <Label htmlFor="role">You are an</Label>
+              <Select
+                name="role"
+                onValueChange={(value) => setValue("role", value)}
+              >
+                <SelectTrigger id="role" aria-label="Select role">
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="individual">Individual</SelectItem>
+                  <SelectItem value="institution">Institution</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Short bio</Label>
               <Textarea
@@ -81,7 +105,9 @@ function SignUpUtility() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+              {isSubmitting && (
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Create your account
             </Button>
           </div>

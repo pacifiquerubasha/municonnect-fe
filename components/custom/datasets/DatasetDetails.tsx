@@ -54,12 +54,12 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
       }
     } catch (error) {
       console.error(error);
-    }
-    finally{
+    } finally {
       setIsGettingSummary(false);
     }
   };
 
+  const fileName = selectedDataset?.files?.mainFile?.split("/")?.pop();
   return (
     <Card className="overflow-hidden">
       {!selectedDataset ? (
@@ -103,7 +103,11 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
                 size="sm"
                 variant="outline"
                 className="h-8 gap-1"
-                onClick={() => navigate("/datasets/chat")}
+                onClick={() =>
+                  navigate(
+                    `/datasets/chat?dataset=${selectedDataset._id}&name=${fileName}`
+                  )
+                }
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
@@ -183,17 +187,24 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
             <Separator className="my-4" />
             <div className="grid gap-3">
               <div className="font-semibold flex items-center gap-2">
-                File Summary {!(summary || selectedDataset.summary) && <Sparkles className="h-3.5 w-3.5 cursor-pointer" onClick={handleGetSummary}/>}
+                File Summary{" "}
+                {!(summary || selectedDataset.summary) && (
+                  <Sparkles
+                    className="h-3.5 w-3.5 cursor-pointer"
+                    onClick={handleGetSummary}
+                  />
+                )}
               </div>
               <dl className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <p>{summary || selectedDataset.summary}</p>
                 </div>
-                {isGettingSummary &&
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>}
+                {isGettingSummary && (
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-[250px]" />
+                    <Skeleton className="h-4 w-[200px]" />
+                  </div>
+                )}
               </dl>
             </div>
           </CardContent>

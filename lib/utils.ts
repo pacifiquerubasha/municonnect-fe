@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx"
+import { BellElectric, Bitcoin, BookmarkCheck, BrickWall, Bus, Cable, Clapperboard, Cpu, Cross, Drum, Flower2, Forklift, HandCoins, Hospital, Hotel, Landmark, LibraryBig, Medal, Nfc, PackageCheck, Percent, ReceiptEuro, ReceiptText, Scale, School, ShieldPlus, Tractor, TramFront, Warehouse, Webcam, Zap } from "lucide-react"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -270,4 +271,131 @@ export const categories = [
       name: 'Automation',
       count: 3
   }
+]
+
+export const startupIndustries = [
+    {
+        name: "Education",
+        icon: LibraryBig,
+    },
+    {
+        name: "Health",
+        icon: Cross,
+    },
+    {
+        name: "Finance",
+        icon: Landmark,
+    },
+    {
+        name: "Technology",
+        icon: Cpu,
+    },
+    {
+        name: "Agriculture",
+        icon: Tractor,
+    },
+    {
+        name: "Transport",
+        icon: Bus,
+    },
+    {
+        name: "Environment",
+        icon: Flower2,
+    },
+    {
+        name: "Energy",
+        icon: Zap,
+    },
+    {
+        name: "Tourism",
+        icon: TramFront,
+    },
+    {
+        name: "Telecommunications",
+        icon: Nfc,
+    },
+    {
+        name: "Trade",
+        icon: ReceiptEuro,
+    },
+    {
+        name: "Manufacturing",
+        icon: Warehouse,
+    },
+    {
+        name: "Mining",
+        icon: Bitcoin,
+    },
+    {
+        name: "Construction",
+        icon: BrickWall,
+    },
+    {
+        name: "Real Estate",
+        icon: Hotel,
+    },
+    {
+        name: "Retail",
+        icon: ReceiptText,
+    },
+    {
+        name: "Wholesale",
+        icon: Percent,
+    },
+    {
+        name: "Hospitality",
+        icon: Hospital,
+    },
+    {
+        name: "Media",
+        icon: Webcam,
+    },
+    {
+        name: "Entertainment",
+        icon: Clapperboard,
+    },
+    {
+        name: "Sports",
+        icon: Medal,
+    },
+    {
+        name: "Culture",
+        icon: Drum,
+    },
+    {
+        name: "Government",
+        icon: School,
+    },
+    {
+        name: "Non-Profit",
+        icon: HandCoins,
+    },
+    {
+        name: "Research",
+        icon: BookmarkCheck,
+    },
+    {
+        name: "Development",
+        icon: ShieldPlus,
+    },
+    {
+        name: "Security",
+        icon: ShieldPlus,
+    },
+    {
+        name: "Legal",
+        icon: Scale,
+    },
+    {
+        name: "Insurance",
+        icon: PackageCheck,
+    },
+    {
+        name: "Logistics",
+        icon: Forklift,
+    },
+    {
+        name: "Supply Chain",
+        icon: Cable,
+    },
 ]

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -29,10 +29,14 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { MenuItem, menu } from "@/lib/menu";
+import { AppContext } from "@/providers/ContextProvider";
 
 const Aside = () => {
+  const { currentUser } = useContext(AppContext);
   const pathname = usePathname();
-  const [menuItems, setMenuItems] = React.useState<MenuItem[]>(menu["User"]);
+  const [menuItems, setMenuItems] = React.useState<MenuItem[]>(
+    menu[currentUser?.role || "individual"]
+  );
 
   return (
     <TooltipProvider>
@@ -45,7 +49,7 @@ const Aside = () => {
             <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">Acme Inc</span>
           </Link>
-          {menuItems.map((item: MenuItem, index: number) => {
+          {menuItems?.map((item: MenuItem, index: number) => {
             return (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
