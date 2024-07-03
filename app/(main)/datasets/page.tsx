@@ -25,8 +25,32 @@ import Aside from "@/components/custom/layout/app/Aside";
 import Header from "@/components/custom/layout/app/Header";
 import DatasetDetails from "@/components/custom/datasets/DatasetDetails";
 import DatasetsTable from "@/components/custom/datasets/DatasetsTable";
+import { useUser } from "@clerk/nextjs";
+import { getMyDatasets } from "@/services/endpoints/datasets";
+import { useEffect, useState } from "react";
 
 export function Datasets() {
+  const { user, isLoaded, isSignedIn  } = useUser();
+
+  const [datasets, setDatasets] = useState([]);
+  const handleGetMyDatasets = async () => {
+    try {
+      console.log("USER", user, isLoaded, isSignedIn)
+      const response = await getMyDatasets(user?.id as string);
+      if (response.data) {
+        setDatasets(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if(isSignedIn && isLoaded)
+    handleGetMyDatasets();
+  }, [isLoaded, isSignedIn]);
+
   const breadcrumbs = [
     {
       href: "/overview",
@@ -37,6 +61,8 @@ export function Datasets() {
       title: "Datasets",
     },
   ];
+
+  const [selectedDataset, setSelectedDataset] = useState(null);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -102,20 +128,15 @@ export function Datasets() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <DatasetsTable />
+                    <DatasetsTable datasets={datasets} setSelectedDataset={setSelectedDataset}/>
                   </CardContent>
-                  <CardFooter>
-                    <div className="text-xs text-muted-foreground">
-                      Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                      datasets
-                    </div>
-                  </CardFooter>
+                  
                 </Card>
               </TabsContent>
             </Tabs>
           </div>
 
-          <DatasetDetails />
+          <DatasetDetails selectedDataset={selectedDataset}/>
         </main>
       </div>
     </div>

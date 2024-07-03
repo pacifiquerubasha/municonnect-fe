@@ -40,16 +40,30 @@ import { Space, Upload, message } from "antd";
 
 import Aside from "@/components/custom/layout/app/Aside";
 import Header from "@/components/custom/layout/app/Header";
-import { UploadIcon } from "@radix-ui/react-icons";
+import { ReloadIcon, UploadIcon } from "@radix-ui/react-icons";
 
 import type { UploadProps } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { createDataset } from "@/services/endpoints/datasets";
+import useNotify from "@/hooks/useNotify";
+import { useUser } from "@clerk/nextjs";
 
 const { Dragger } = Upload;
 
 const AddDataset = () => {
   const router = useRouter();
+  const { notify, contextHolder } = useNotify();
+  
+  const { user } = useUser();
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<any>();
 
   const breadcrumbs = [
     {
@@ -66,18 +80,38 @@ const AddDataset = () => {
     },
   ];
 
+  const handleAddDataset = async (data: any) => {
+    console.log(data);
+    try {
+      const response = await createDataset({...data, owner: user?.id});
+      if (response.data) {
+        notify("Dataset added successfully", "success");
+        router.push("/datasets");
+      }
+    } catch (error) {
+      notify("An error occurred", "error");
+    }
+  };
+
   const props: UploadProps = {
     name: "file",
     multiple: true,
-    action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+    action: "http://localhost:8080/upload/",
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
-        console.log(info.file, info.fileList);
+        const response = info.fileList[0].response;
+        console.log(response);
+        setValue("mainFile", response.main_file_url);
+        setValue("numRows", response.num_rows);
+        setValue("numColumns", response.fields.length);
+        setValue("fileSize", response.file_size);
+        setValue("fields", response.fields);
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === "error") {
+        console.log(info.file.response);
         message.error(`${info.file.name} file upload failed.`);
       }
     },
@@ -86,13 +120,23 @@ const AddDataset = () => {
     },
   };
 
+  const licenses = [
+    "Open Data Commons Open Database License (ODbL)",
+    "Creative Commons CC BY (Attribution)",
+    "Creative Commons CC0 (Public Domain Dedication)",
+  ];
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <Aside />
+      {contextHolder}
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <Header breadcrumbs={breadcrumbs} />
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+          <form
+            onSubmit={handleSubmit(handleAddDataset)}
+            className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4"
+          >
             <div className="flex items-center gap-4">
               <Button
                 variant="outline"
@@ -107,7 +151,11 @@ const AddDataset = () => {
                 Add Dataset
               </h1>
               <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                <Button variant="outline" size="sm" onClick={() => router.back()}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.back()}
+                >
                   Discard
                 </Button>
                 <Button size="sm">Save Dataset</Button>
@@ -131,6 +179,7 @@ const AddDataset = () => {
                           type="text"
                           className="w-full"
                           placeholder="Enter the dataset title"
+                          {...register("title", { required: true })}
                         />
                       </div>
                       <div className="grid gap-3">
@@ -139,11 +188,15 @@ const AddDataset = () => {
                           id="description"
                           placeholder="Enter the dataset description"
                           className="min-h-32"
+                          {...register("description", { required: true })}
                         />
                       </div>
                       <div className="grid gap-3">
-                        <Label htmlFor="category">Category</Label>
-                        <Select>
+                        <Label htmlFor="category">Domain</Label>
+                        <Select
+                          name="domain"
+                          onValueChange={(value) => setValue("domain", value)}
+                        >
                           <SelectTrigger
                             id="category"
                             aria-label="Select category"
@@ -151,13 +204,18 @@ const AddDataset = () => {
                             <SelectValue placeholder="Select category" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="clothing">Clothing</SelectItem>
-                            <SelectItem value="electronics">
-                              Electronics
+                            <SelectItem value="healthcare">
+                              Healthcare
                             </SelectItem>
-                            <SelectItem value="accessories">
-                              Accessories
+                            <SelectItem value="transportation">
+                              Transportation
                             </SelectItem>
+                            <SelectItem value="finance">Finance</SelectItem>
+                            <SelectItem value="education">Education</SelectItem>
+                            <SelectItem value="agriculture">
+                              Agriculture
+                            </SelectItem>
+                            <SelectItem value="energy">Energy</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -168,12 +226,13 @@ const AddDataset = () => {
                           type="text"
                           className="w-full"
                           placeholder="Enter the dataset tags. Eg. transport, traffic..."
+                          {...register("tags", { required: true })}
                         />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-                <Card x-chunk="dashboard-07-chunk-1">
+                <Card x-chunk="dashboard-07-chunk-1" className="pb-5">
                   <CardHeader>
                     <CardTitle>Files and Formats</CardTitle>
                     <CardDescription>
@@ -182,16 +241,23 @@ const AddDataset = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid gap-6">
+                    <div className="grid gap-6 ">
                       <div className="grid gap-3">
-                        <Label htmlFor="format">Format</Label>
-                        <Select>
-                          <SelectTrigger id="format" aria-label="Select format">
-                            <SelectValue placeholder="Select format" />
+                        <Label htmlFor="language">Licence</Label>
+                        <Select
+                          name="licence"
+                          onValueChange={(value) => setValue("licence", value)}
+                        >
+                          <SelectTrigger
+                            id="licence"
+                            aria-label="Select licence"
+                          >
+                            <SelectValue placeholder="Select licence" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="csv">CSV</SelectItem>
-                            <SelectItem value="excel">Excel</SelectItem>
+                            {licenses.map((license) => (
+                              <SelectItem value={license}>{license}</SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </div>
@@ -214,33 +280,30 @@ const AddDataset = () => {
                     </div>
                   </CardContent>
                 </Card>
-                <Card x-chunk="dashboard-07-chunk-2">
+              </div>
+              <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                <Card x-chunk="dashboard-07-chunk-3">
                   <CardHeader>
                     <CardTitle>Metadata</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid gap-6 sm:grid-cols-3">
-                      <div className="grid gap-3">
-                        <Label htmlFor="category">Version</Label>
-                        <Input
-                          id="sources"
-                          type="text"
-                          className="w-full"
-                          placeholder="Enter the version"
-                        />
-                      </div>
-                      <div className="grid gap-3">
+                    <div className="grid gap-6 sm:grid-cols-1">
+                      <div className="grid gap-2">
                         <Label htmlFor="category">Date Published</Label>
                         <Input
                           id="sources"
                           type="date"
                           className="w-full"
                           placeholder="Enter the dataset sources"
+                          {...register("releaseDate", { required: true })}
                         />
                       </div>
-                      <div className="grid gap-3">
+                      <div className="grid gap-2">
                         <Label htmlFor="language">Language</Label>
-                        <Select>
+                        <Select
+                          name="language"
+                          onValueChange={(value) => setValue("language", value)}
+                        >
                           <SelectTrigger
                             id="language"
                             aria-label="Select language"
@@ -260,128 +323,7 @@ const AddDataset = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-              <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                <Card x-chunk="dashboard-07-chunk-3">
-                  <CardHeader>
-                    <CardTitle>Data Sources and Resources</CardTitle>
-                    <CardDescription>
-                      List the sources of data, provide sample data files, and
-                      any related resources.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid gap-6">
-                      <div className="grid gap-3">
-                        <Label htmlFor="sources">Data Sources</Label>
-                        <Input
-                          id="sources"
-                          type="text"
-                          className="w-full"
-                          placeholder="Enter the dataset sources"
-                        />
-                      </div>
-                      <div className="grid gap-3">
-                        <Label htmlFor="sources">Sample data</Label>
-                        <Upload
-                          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                          listType="picture"
-                          maxCount={1}
-                        >
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-8 w-full gap-1"
-                          >
-                            <UploadIcon className="h-3.5 w-3.5" />
-                            <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-                              Upload (Max: 1)
-                            </span>
-                          </Button>
-                        </Upload>
-                      </div>
-                      <div className="grid gap-3">
-                        <Label htmlFor="licence">License</Label>
-                        <Select>
-                          <SelectTrigger
-                            id="license"
-                            aria-label="Select license"
-                          >
-                            <SelectValue placeholder="Select license" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="obd">
-                              Open Data Commons Open Database License (ODbL)
-                            </SelectItem>
-                            <SelectItem value="cc-by">
-                              Creative Commons Attribution (CC BY)
-                            </SelectItem>
-                            <SelectItem value="cc-by-sa">
-                              Creative Commons Attribution-ShareAlike (CC BY-SA)
-                            </SelectItem>
-                            <SelectItem value="cc-by-nc">
-                              Creative Commons Attribution-NonCommercial (CC
-                              BY-NC)
-                            </SelectItem>
-                            <SelectItem value="cc-by-nd">
-                              Creative Commons Attribution-NoDerivatives (CC
-                              BY-ND)
-                            </SelectItem>
-                            <SelectItem value="mit">MIT License</SelectItem>
-                            <SelectItem value="public-domain">
-                              Public Domain
-                            </SelectItem>
-                            <SelectItem value="custom">
-                              Custom License
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card
-                  className="overflow-hidden"
-                  x-chunk="dashboard-07-chunk-4"
-                >
-                  <CardHeader>
-                    <CardTitle>Contact and Attribution</CardTitle>
-                    <CardDescription>
-                      Enter contact information and metadata
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid gap-6">
-                      <div className="grid gap-3">
-                        <Label htmlFor="name">Name</Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          className="w-full"
-                          placeholder="Enter the contact name"
-                        />
-                      </div>
-                      <div className="grid gap-3">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          type="text"
-                          className="w-full"
-                          placeholder="Enter the contact email"
-                        />
-                      </div>
-                      <div className="grid gap-3">
-                        <Label htmlFor="organisation">Organization</Label>
-                        <Input
-                          id="organisation"
-                          type="text"
-                          className="w-full"
-                          placeholder="Enter the contact organisation"
-                        />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+
                 <Card x-chunk="dashboard-07-chunk-5">
                   <CardHeader>
                     <CardTitle>Terms and Conditions</CardTitle>
@@ -393,7 +335,12 @@ const AddDataset = () => {
                   <CardContent>
                     <div className="grid gap-6">
                       <div className="items-top flex space-x-2">
-                        <Checkbox id="terms" />
+                        <Checkbox
+                          id="terms"
+                          onCheckedChange={(checked) =>
+                            setValue("terms", checked)
+                          }
+                        />
                         <div className="grid gap-1.5 leading-none">
                           <label
                             htmlFor="terms"
@@ -408,7 +355,12 @@ const AddDataset = () => {
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Checkbox id="private" />
+                        <Checkbox
+                          id="private"
+                          onCheckedChange={(checked) =>
+                            setValue("isPrivate", checked)
+                          }
+                        />
                         <label
                           htmlFor="private"
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -425,9 +377,12 @@ const AddDataset = () => {
               <Button variant="outline" size="sm">
                 Discard
               </Button>
-              <Button size="sm">Save Product</Button>
+              <Button size="sm" disabled={isSubmitting}>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                Save Product
+              </Button>
             </div>
-          </div>
+          </form>
         </main>
       </div>
     </div>

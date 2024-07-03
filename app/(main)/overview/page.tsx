@@ -80,7 +80,6 @@ export function Dashboard() {
   ];
 
   const { user } = useUser();
-
   React.useEffect(() => {
     console.log(user);
   }, []);

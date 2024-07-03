@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Nav } from "./Nav";
+import Link from "next/link";
 
 export default function Header() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -12,9 +13,9 @@ export default function Header() {
     <header className="fixed top-0 w-full clearNav z-50 bg-white">
       <div className="max-w-5xl mx-auto flex flex-wrap p-5 flex-col md:flex-row">
         <div className="flex flex-row items-center justify-between p-3 md:p-1">
-          <a href="/" className="flex text-3xl  font-medium mb-4 md:mb-0">
+          <Link href="/" className="flex text-3xl  font-medium mb-4 md:mb-0">
             CongoMetrix
-          </a>
+          </Link>
           <button
             className=" pb-4 cursor-pointer leading-none px-3 py-1 md:hidden outline-none focus:outline-none content-end ml-auto"
             type="button"
@@ -49,9 +50,11 @@ export default function Header() {
             <Nav />
           </div>
 
-          <button className="font-medium tracking-wide py-2 px-5 sm:px-8 border border-black-500 text-black-500 bg-white-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-black-500 hover:text-white-500 transition-all hover:shadow-black ">
-            Sign In
-          </button>
+          <Link href="/sign-in">
+            <button className="font-medium tracking-wide py-2 px-5 sm:px-8 border border-black-500 text-black-500 bg-white-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-black-500 hover:text-white-500 transition-all hover:shadow-black ">
+              Sign In
+            </button>
+          </Link>
         </div>
       </div>
     </header>

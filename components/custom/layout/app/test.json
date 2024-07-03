@@ -1,0 +1,111 @@
+{
+    "pathRoot": "/me",
+    "id": "user_2hbZEJhvAIAImgbLEVuJWgVgxVt",
+    "externalId": null,
+    "username": "pacifiquerubasha",
+    "emailAddresses": [
+      {
+        "pathRoot": "/me/email_addresses",
+        "emailAddress": "pkishinyambwe@gmail.com",
+        "linkedTo": [
+          {
+            "pathRoot": "",
+            "id": "idn_2hbZD5P5A0WvF1toEwbUHeECPBx",
+            "type": "oauth_google"
+          }
+        ],
+        "id": "idn_2hbZD4gL90kS6MpecuHSG3zXSIS",
+        "verification": {
+          "pathRoot": "",
+          "status": "verified",
+          "strategy": "from_oauth_google",
+          "nonce": null,
+          "externalVerificationRedirectURL": null,
+          "attempts": null,
+          "expireAt": "2024-06-22T09:17:12.104Z",
+          "error": null
+        }
+      }
+    ],
+    "phoneNumbers": [],
+    "web3Wallets": [],
+    "externalAccounts": [
+      {
+        "pathRoot": "/me/external_accounts",
+        "providerUserId": "115985375873289914044",
+        "emailAddress": "pkishinyambwe@gmail.com",
+        "approvedScopes": "email https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid profile",
+        "firstName": "KISHINYAMBWE",
+        "lastName": "RUBASHA",
+        "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJandSYjlZS0xISzdjN3hpMW9oV2lEa19rVUpzS2dFaGc3UXlpWlJzQkp2ck5YNmRXa1h3PXMxMDAwLWMiLCJzIjoiWFZvWGFoVTRJYS9NZGozeDc0UXBXZVNJMEY3WFErQzVjbVdRcnNaVWdVWSJ9",
+        "username": "",
+        "publicMetadata": {},
+        "label": null,
+        "verification": {
+          "pathRoot": "",
+          "status": "verified",
+          "strategy": "oauth_google",
+          "nonce": null,
+          "externalVerificationRedirectURL": null,
+          "attempts": null,
+          "expireAt": "2024-06-08T16:46:30.640Z",
+          "error": {
+            "code": "external_account_missing_refresh_token",
+            "message": "Missing refresh token",
+            "longMessage": "We cannot refresh your OAuth access token because the server didn't provide a refresh token. Please re-connect your account.",
+            "meta": {}
+          }
+        },
+        "id": "eac_2hbZD7PmKszNK1YwzR37PtXy6TT",
+        "identificationId": "idn_2hbZD5P5A0WvF1toEwbUHeECPBx",
+        "provider": "google"
+      }
+    ],
+    "passkeys": [],
+    "samlAccounts": [],
+    "organizationMemberships": [],
+    "passwordEnabled": false,
+    "firstName": "KISHINYAMBWE",
+    "lastName": "RUBASHA",
+    "fullName": "KISHINYAMBWE RUBASHA",
+    "primaryEmailAddressId": "idn_2hbZD4gL90kS6MpecuHSG3zXSIS",
+    "primaryEmailAddress": {
+      "pathRoot": "/me/email_addresses",
+      "emailAddress": "pkishinyambwe@gmail.com",
+      "linkedTo": [
+        {
+          "pathRoot": "",
+          "id": "idn_2hbZD5P5A0WvF1toEwbUHeECPBx",
+          "type": "oauth_google"
+        }
+      ],
+      "id": "idn_2hbZD4gL90kS6MpecuHSG3zXSIS",
+      "verification": {
+        "pathRoot": "",
+        "status": "verified",
+        "strategy": "from_oauth_google",
+        "nonce": null,
+        "externalVerificationRedirectURL": null,
+        "attempts": null,
+        "expireAt": "2024-06-22T09:17:12.104Z",
+        "error": null
+      }
+    },
+    "primaryPhoneNumberId": null,
+    "primaryPhoneNumber": null,
+    "primaryWeb3WalletId": null,
+    "primaryWeb3Wallet": null,
+    "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yaGJaRVB1NUx5eWU4cUtQeGtYWVgxTXJZS00ifQ",
+    "hasImage": true,
+    "twoFactorEnabled": false,
+    "totpEnabled": false,
+    "backupCodeEnabled": false,
+    "publicMetadata": {},
+    "unsafeMetadata": {},
+    "createOrganizationEnabled": true,
+    "deleteSelfEnabled": true,
+    "lastSignInAt": "2024-06-22T09:17:10.804Z",
+    "updatedAt": "2024-06-22T09:17:10.826Z",
+    "createdAt": "2024-06-08T16:37:04.559Z",
+    "cachedSessionsWithActivities": null
+  }

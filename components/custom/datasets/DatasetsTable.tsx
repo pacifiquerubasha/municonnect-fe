@@ -13,8 +13,15 @@ import {
 
 import { sampleDashboardDatasets } from "@/samples/samples";
 
-const DatasetsTable = () => {
+type Props = {
+  datasets: any[],
+  setSelectedDataset: any,
+}
+
+const DatasetsTable:React.FC<Props> = ({datasets, setSelectedDataset}) => {
+
   return (
+    <>
     <Table>
       <TableHeader>
         <TableRow>
@@ -26,27 +33,28 @@ const DatasetsTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {sampleDashboardDatasets.map((dataset, index) => (
-          <TableRow>
+        {datasets?.map((dataset, index) => (
+          <TableRow className="cursor-pointer" onClick={()=>setSelectedDataset(dataset)}>
             <TableCell>
               <div className="font-medium">{dataset.name}</div>
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-              {dataset.category}
+              {dataset.domain}
             </TableCell>
             <TableCell className="hidden sm:table-cell">
               <Badge className="text-xs" variant="secondary">
-                {dataset.status}
+                {dataset.isApproved ? "Approved" : "Pending"}
               </Badge>
             </TableCell>
             <TableCell className="hidden md:table-cell">
-              {dataset.size}
+              {dataset.fileSize}
             </TableCell>
-            <TableCell className="text-right">{dataset.rows}</TableCell>
+            <TableCell className="text-right">{dataset.numRows}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
+    </>
   );
 };
 
