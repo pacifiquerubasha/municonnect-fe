@@ -82,6 +82,7 @@ const AddDataset = () => {
 
   const handleAddDataset = async (data: any) => {
     console.log(data);
+    console.log("USER", user?.id);
     try {
       const response = await createDataset({ ...data, owner: user?.id });
       if (response.data) {

@@ -26,12 +26,16 @@ import Header from "@/components/custom/layout/app/Header";
 import DatasetDetails from "@/components/custom/datasets/DatasetDetails";
 import DatasetsTable from "@/components/custom/datasets/DatasetsTable";
 import { useUser } from "@clerk/nextjs";
-import { getMyDatasets } from "@/services/endpoints/datasets";
-import { useEffect, useState } from "react";
+import { getAllDatasets, getMyDatasets } from "@/services/endpoints/datasets";
+import { useContext, useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AppContext } from "@/providers/ContextProvider";
 
 export function Datasets() {
   const { user, isLoaded, isSignedIn } = useUser();
+  const { currentUser } = useContext(AppContext);
+
+  const [selectedDataset, setSelectedDataset] = useState(null);
 
   const [datasets, setDatasets] = useState([]);
   const [isLoadedDataset, setIsLoadedDatasets] = useState(false);
@@ -41,6 +45,7 @@ export function Datasets() {
       const response = await getMyDatasets(user?.id as string);
       if (response.data) {
         setDatasets(response.data);
+        setSelectedDataset(null);
         console.log(response.data);
       }
     } catch (error) {
@@ -50,9 +55,32 @@ export function Datasets() {
     }
   };
 
+  const handleAllDatasets = async () => {
+    try {
+      setIsLoadedDatasets(false);
+      const response = await getAllDatasets(user?.id as string);
+      if (response.data) {
+        setDatasets(response.data);
+        setSelectedDataset(null);
+        console.log("ALL", response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoadedDatasets(true);
+    }
+  };
+
+  const [shouldRefresh, setShouldRefresh] = useState(false);
   useEffect(() => {
-    if (isSignedIn && isLoaded) handleGetMyDatasets();
-  }, [isLoaded, isSignedIn]);
+    if (isSignedIn && isLoaded) {
+      if (currentUser?.role === "admin") {
+        handleAllDatasets();
+      } else {
+        handleGetMyDatasets();
+      }
+    }
+  }, [isLoaded, isSignedIn, shouldRefresh]);
 
   const breadcrumbs = [
     {
@@ -64,8 +92,6 @@ export function Datasets() {
       title: "Datasets",
     },
   ];
-
-  const [selectedDataset, setSelectedDataset] = useState(null);
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
@@ -96,6 +122,7 @@ export function Datasets() {
                 <DatasetsTable
                   datasets={datasets}
                   setSelectedDataset={setSelectedDataset}
+                  setShouldRefresh={setShouldRefresh}
                 />
                 {!isLoadedDataset ? (
                   <>
@@ -118,7 +145,10 @@ export function Datasets() {
         </Tabs>
       </div>
 
-      <DatasetDetails selectedDataset={selectedDataset} />
+      <DatasetDetails
+        selectedDataset={selectedDataset}
+        setShouldRefresh={setShouldRefresh}
+      />
     </main>
   );
 }

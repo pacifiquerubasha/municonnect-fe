@@ -33,14 +33,25 @@ import { Badge } from "@/components/ui/badge";
 import { Alert } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { getDatasetSummary } from "@/services/endpoints/datasets";
+import {
+  getDatasetSummary,
+  switchDatasetVisibility,
+} from "@/services/endpoints/datasets";
+import { useUser } from "@clerk/nextjs";
+import useNotify from "@/hooks/useNotify";
 
 type Props = {
   selectedDataset: any;
+  setShouldRefresh?: any;
 };
-const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
+const DatasetDetails: React.FC<Props> = ({
+  selectedDataset,
+  setShouldRefresh,
+}) => {
+  const { user } = useUser();
   const router = useRouter();
   const navigate = (path: string) => router.push(path, { scroll: false });
+  const { notify, contextHolder } = useNotify();
 
   const [isGettingSummary, setIsGettingSummary] = useState(false);
   const [summary, setSummary] = useState<any>(null);
@@ -59,6 +70,23 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
     }
   };
 
+  const handleSwitchVisibility = async () => {
+    try {
+      const response = await switchDatasetVisibility(
+        user?.id as string,
+        selectedDataset._id
+      );
+      if (response.data) {
+        notify("Visibility changed successfully", "success");
+        setShouldRefresh((prev: boolean) => !prev);
+        console.log(response.data);
+      }
+    } catch (error) {
+      notify("An error occurred while changing visibility", "error");
+      console.error(error);
+    }
+  };
+
   const fileName = selectedDataset?.files?.mainFile?.split("/")?.pop();
   return (
     <Card className="overflow-hidden">
@@ -72,21 +100,10 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
         </div>
       ) : (
         <>
-          <CardHeader className="flex flex-row items-start bg-muted/50">
+          <CardHeader className="flex flex-row items-start gap-4 bg-muted/50">
             <div className="grid gap-0.5">
-              <CardTitle className="group flex items-center gap-2 text-lg">
+              <CardTitle className="group flex items-start gap-2 text-lg">
                 {selectedDataset.name}{" "}
-                <Badge>
-                  {selectedDataset.isPrivate ? "PRIVATE" : "PUBLIC"}
-                </Badge>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
-                >
-                  <Copy className="h-3 w-3" />
-                  <span className="sr-only">Copy Order ID</span>
-                </Button>
               </CardTitle>
               <CardDescription>
                 <div className="flex flex-col gap-1">
@@ -99,6 +116,25 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
               </CardDescription>
             </div>
             <div className="ml-auto flex items-center gap-1">
+              {user?.id === selectedDataset?.owner && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="text-xs">
+                      {selectedDataset.isPrivate ? "PRIVATE" : "PUBLIC"}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      onClick={handleSwitchVisibility}
+                      className="my-4 mx-2 cursor-pointer"
+                    >
+                      {selectedDataset.isPrivate
+                        ? "Make Public"
+                        : "Make Private"}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
               <Button
                 size="sm"
                 variant="outline"
@@ -114,20 +150,6 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
                   Ask questions
                 </span>
               </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="outline" className="h-8 w-8">
-                    <MoreVertical className="h-3.5 w-3.5" />
-                    <span className="sr-only">More</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Export</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Trash</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </CardHeader>
           <CardContent className="p-6 text-sm">
@@ -137,11 +159,11 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
               <ul className="grid gap-3 mt-2">
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Category</span>
-                  <span>{selectedDataset.domain}</span>
+                  <span className="capitalize">{selectedDataset.domain}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Language</span>
-                  <span>{selectedDataset.language}</span>
+                  <span className="capitalize">{selectedDataset.language}</span>
                 </li>
               </ul>
               <Separator className="my-2" />
@@ -157,7 +179,7 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
               </ul>
             </div>
             <Separator className="my-4" />
-            <div className="grid grid-cols-2 gap-4">
+            <div className=" gap-4">
               <div className="grid auto-rows-max gap-3">
                 <div className="font-semibold">Licence</div>
                 <div className="text-muted-foreground">
@@ -182,18 +204,32 @@ const DatasetDetails: React.FC<Props> = ({ selectedDataset }) => {
                     </a>
                   </dd>
                 </div>
+                <div className="flex items-center justify-between">
+                  <dt className="text-gray-800 font-semibold">FIELDS</dt>
+                </div>
+                <ul className="grid gap-3">
+                  {selectedDataset.fields?.map((field: any) => (
+                    <li className="flex items-center justify-between border-t">
+                      <span className="text-muted-foreground">
+                        {field.name}
+                      </span>
+                      <span>{field.type}</span>
+                    </li>
+                  ))}
+                </ul>
               </dl>
             </div>
             <Separator className="my-4" />
             <div className="grid gap-3">
               <div className="font-semibold flex items-center gap-2">
                 File Summary{" "}
-                {!(summary || selectedDataset.summary) && (
-                  <Sparkles
-                    className="h-3.5 w-3.5 cursor-pointer"
-                    onClick={handleGetSummary}
-                  />
-                )}
+                {!(summary || selectedDataset.summary) &&
+                  user?.id === selectedDataset?.owner && (
+                    <Sparkles
+                      className="h-3.5 w-3.5 cursor-pointer"
+                      onClick={handleGetSummary}
+                    />
+                  )}
               </div>
               <dl className="grid gap-3">
                 <div className="flex items-center justify-between">

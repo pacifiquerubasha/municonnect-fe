@@ -27,3 +27,12 @@ export const verifyUser = async (userId: string, authId: string) => {
     },
   });
 };
+
+
+export const banUser = async (userId: string, authId: string) => {
+  return await api.put(`/users/ban/${userId}`, {}, {
+    headers: {
+      Authorization: `Bearer ${authId}`,
+    },
+  });
+}

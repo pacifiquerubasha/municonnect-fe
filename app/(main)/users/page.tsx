@@ -59,9 +59,10 @@ const page = () => {
     }
   };
 
+  const [shouldRefresh, setShouldRefresh] = useState<boolean>(false);
   useEffect(() => {
     if (isSignedIn) handleGetUsers();
-  }, [isSignedIn]);
+  }, [isSignedIn, shouldRefresh]);
 
   const tabs = [
     {
@@ -95,7 +96,11 @@ const page = () => {
         statsData?.admin?.total +
           statsData?.individual?.total +
           statsData?.institution?.total || 0,
-      percentage: `${(statsData?.individual?.increaseRate + statsData?.institution?.increaseRate)/2  || 0}% from last month`,
+      percentage: `${
+        (statsData?.individual?.increaseRate +
+          statsData?.institution?.increaseRate) /
+          2 || 0
+      }% from last month`,
       icon: Users2,
     },
     {
@@ -174,7 +179,10 @@ const page = () => {
                     <p className="text-lg">No users found</p>
                   </div>
                 ) : (
-                  <UsersTable data={tab.data} />
+                  <UsersTable
+                    data={tab.data}
+                    setShouldRefresh={setShouldRefresh}
+                  />
                 )}
               </>
             )}
