@@ -99,12 +99,10 @@ const ChatBody = () => {
           console.log("prevMessages", prevMessages);
           return prevMessages;
         });
-
       }
     } catch (error) {
       console.error(error);
-    }
-    finally {
+    } finally {
       setIsAwaitingMessage(false);
     }
   };
@@ -125,7 +123,8 @@ const ChatBody = () => {
       };
       const response = await getSampleQuestions(user?.id as string, data);
       if (response.data) {
-        setSampleQuestions(response.data);
+        if (response?.data?.questions)
+          setSampleQuestions(response.data.questions);
         console.log(response.data);
       }
     } catch (error) {
@@ -135,13 +134,12 @@ const ChatBody = () => {
     }
   };
 
-
   useEffect(() => {
-    if (user && dataset) {
+    if (user) {
       handleGetSampleQuestions(fileName as string);
       handleGetMessages(dataset as string);
     }
-  }, [user, dataset]);
+  }, [user]);
 
   const [isShowSampleQuestions, setIsShowSampleQuestions] =
     useState<boolean>(true);
@@ -151,9 +149,9 @@ const ChatBody = () => {
     handleSendMessage({ message: question });
   };
 
-  const sampleQuestionsToShow = sampleQuestions?.filter((question:any)=>{
+  const sampleQuestionsToShow = sampleQuestions?.filter((question: any) => {
     return !messages.some((message: any) => message.userMessage === question);
-  })
+  });
 
   return (
     <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-3">
@@ -207,7 +205,7 @@ const ChatBody = () => {
           </div>
         )}
       </div>
-      <div ref={bottomRef}/>
+      <div ref={bottomRef} />
       <form
         className="sticky bottom-0 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
         x-chunk="dashboard-03-chunk-1"

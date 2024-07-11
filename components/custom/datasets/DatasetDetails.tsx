@@ -119,7 +119,7 @@ const DatasetDetails: React.FC<Props> = ({
               {user?.id === selectedDataset?.owner && (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button className="text-xs">
+                    <Button className="text-xs" variant="outline">
                       {selectedDataset.isPrivate ? "PRIVATE" : "PUBLIC"}
                     </Button>
                   </DropdownMenuTrigger>
@@ -136,8 +136,7 @@ const DatasetDetails: React.FC<Props> = ({
                 </DropdownMenu>
               )}
               <Button
-                size="sm"
-                variant="outline"
+                size="sm"                
                 className="h-8 gap-1"
                 onClick={() =>
                   navigate(
