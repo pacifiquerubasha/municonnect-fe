@@ -102,7 +102,7 @@ const AddDataset = () => {
       const { status } = info.file;
       if (status !== "uploading") {
         const response = info.fileList[0].response;
-        console.log(response);
+        console.log("FILE URL", response.main_file_url);
         setValue("mainFile", response.main_file_url);
         setValue("numRows", response.num_rows);
         setValue("numColumns", response.fields.length);

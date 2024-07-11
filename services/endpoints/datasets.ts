@@ -16,10 +16,10 @@ export const getMyDatasets = async (userId: string) => {
   });
 };
 
-export const getDatasetSummary = async (datasetId: string) => {
+export const getDatasetSummary = async (userId:string, datasetId: string) => {
   return await api.get(`/datasets/${datasetId}/summary`, {
     headers: {
-      Authorization: `Bearer ${datasetId}`,
+      Authorization: `Bearer ${userId}`,
     },
   });
 };

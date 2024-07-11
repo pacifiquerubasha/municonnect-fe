@@ -58,7 +58,7 @@ const DatasetDetails: React.FC<Props> = ({
   const handleGetSummary = async () => {
     try {
       setIsGettingSummary(true);
-      const response = await getDatasetSummary(selectedDataset._id);
+      const response = await getDatasetSummary(user?.id as string, selectedDataset._id);
       if (response.data) {
         setSummary(response.data.summary);
         console.log(response.data.summary);
