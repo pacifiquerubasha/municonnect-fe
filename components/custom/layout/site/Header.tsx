@@ -3,8 +3,11 @@
 import React from "react";
 import { Nav } from "./Nav";
 import Link from "next/link";
+import { useUser, UserButton } from "@clerk/nextjs";
+import { Spin } from "antd";
 
 export default function Header() {
+  const { isLoaded, user } = useUser();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [flyer, setFlyer] = React.useState(false);
   const [flyerTwo, setFlyerTwo] = React.useState(false);
@@ -49,12 +52,24 @@ export default function Header() {
           <div className="mx-auto">
             <Nav />
           </div>
-
-          <Link href="/sign-in">
-            <button className="font-medium tracking-wide py-2 px-5 sm:px-8 border border-black-500 text-black-500 bg-white-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-black-500 hover:text-white-500 transition-all hover:shadow-black ">
-              Sign In
-            </button>
-          </Link>
+          {!isLoaded ? (
+            <Spin size="default" />
+          ) : (
+            <>
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <Link href="/overview">Dashboard</Link>
+                  <UserButton />
+                </div>
+              ) : (
+                <Link href="/sign-in">
+                  <button className="font-medium tracking-wide py-2 px-5 sm:px-8 border border-black-500 text-black-500 bg-white-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-black-500 hover:text-white-500 transition-all hover:shadow-black ">
+                    Sign In
+                  </button>
+                </Link>
+              )}
+            </>
+          )}
         </div>
       </div>
     </header>

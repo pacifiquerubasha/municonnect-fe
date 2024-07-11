@@ -66,3 +66,27 @@ export const getAllDatasets = async (userId: string) => {
     },
   });
 };
+
+export const getDatasetsStats = async () => {
+  return await api.get("/datasets/get-dataset-stats");
+};
+
+export const getDataset = async (datasetId: string) => {
+  return await api.get(`/datasets/${datasetId}`);
+};
+
+export const increaseDownloads = async (datasetId: string) => {
+  try {
+    await api.put(`/datasets/${datasetId}/increase-downloads`);
+  } catch (error) {
+    console.log("Error increasing downloads", error);
+  }
+};
+
+export const addRating = async (datasetId: string, rating: number) => {
+  try {
+    await api.put(`/datasets/${datasetId}/add-rating`, { rating });
+  } catch (error) {
+    console.log("Error adding rating", error);
+  }
+};

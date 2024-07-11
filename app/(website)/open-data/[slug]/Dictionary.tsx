@@ -1,17 +1,16 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 
 interface DataType {
-    key: React.Key;
-    field: string;
-    type: string;
-    description: string;
+  key: React.Key;
+  field: string;
+  type: string;
 }
 
-const Dictionary = () => {
+const Dictionary = ({ dataset }: { dataset: any }) => {
   const columns: TableColumnsType<DataType> = [
     {
       title: "Field",
@@ -22,34 +21,12 @@ const Dictionary = () => {
       title: "Type",
       dataIndex: "type",
     },
-    {
-      title: "Description",
-      dataIndex: "description",      
-      width: "40%",
-    },
   ];
-
-  const data: DataType[] = [
-    {
-      key: "1",
-      field: "Name",
-      type: "string",
-      description: "Name of the person",
-    },
-    {
-      key: "2",
-      field: "Age",
-      type: "number",
-      description: "Age of the person",
-    },
-    {
-      key: "3",
-      field: "Address",
-      type: "string",
-      description: "Address of the person",
-      
-    },
-  ];
+  const data: DataType[] = dataset?.fields.map((field: any, index: number) => ({
+    key: field._id,
+    field: field.name,
+    type: field.type,
+  }));
 
   const onChange: TableProps<DataType>["onChange"] = (
     pagination,
@@ -59,9 +36,10 @@ const Dictionary = () => {
   ) => {
     console.log("params", pagination, filters, sorter, extra);
   };
+
   return (
     <div className="inter">
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table columns={columns} dataSource={data} onChange={onChange}/>
     </div>
   );
 };

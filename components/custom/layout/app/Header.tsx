@@ -44,9 +44,10 @@ type BreadcrumbItem = {
 
 type Props = {
   breadcrumbs: BreadcrumbItem[];
+  tourRef: any;
 };
 
-const Header: React.FC<Props> = ({ breadcrumbs }) => {
+const Header: React.FC<Props> = ({ breadcrumbs, tourRef }) => {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
@@ -131,7 +132,9 @@ const Header: React.FC<Props> = ({ breadcrumbs }) => {
           className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
         />
       </div>
-      <UserButton />
+      <div ref={tourRef}>
+        <UserButton />
+      </div>
     </header>
   );
 };

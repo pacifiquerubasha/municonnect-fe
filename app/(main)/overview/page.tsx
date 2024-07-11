@@ -17,17 +17,15 @@ import {
   Truck,
   Users2,
   FileText,
+  CopyIcon,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -70,8 +68,12 @@ import Header from "@/components/custom/layout/app/Header";
 import { sampleDashboardDatasets } from "@/samples/samples";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/nextjs";
+import { Flex } from "antd";
+import { copyTextToClipboard } from "@/lib/utils";
+import { AppContext } from "@/providers/ContextProvider";
 
 export function Dashboard() {
+  const { currentUser } = React.useContext(AppContext);
   const breadcrumbs = [
     {
       href: "/overview",
@@ -81,7 +83,7 @@ export function Dashboard() {
 
   const { user } = useUser();
   React.useEffect(() => {
-    console.log(user);
+    console.log(currentUser);
   }, []);
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
@@ -223,23 +225,29 @@ export function Dashboard() {
         </Tabs>
       </div>
       <div className="flex flex-col items-start gap-4 md:gap-8">
-        <Card className="w-full">
+        <Card className="w-full bg-slate-100">
           <CardHeader>
-            <CardTitle>Featured Articles</CardTitle>
+            <CardTitle>API KEY</CardTitle>
+            <CardDescription>
+              Use this key to authenticate your requests to our datasets API
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="p-1">
-                <Card>
-                  <CardContent className="flex flex-col items-start justify-center p-3 gap-1">
-                    <span className="text-sm font-semibold">
-                      The future of open-source
-                    </span>
-                    <span className="text-sm ">Joseph Mateo</span>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
+            <div className="flex items-center justify-between p-2 rounded-md bg-white">
+              <p className="text-xs truncate">{currentUser?.apiKey}</p>
+              <Popover>
+                <PopoverTrigger
+                  onClick={() => copyTextToClipboard(currentUser?.apiKey || "")}
+                >
+                  <div className="flex items-center gap-2">
+                    <CopyIcon width={15} />
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent className="w-[5rem] p-[0.5rem]">
+                  Copied
+                </PopoverContent>
+              </Popover>
+            </div>
           </CardContent>
         </Card>
 

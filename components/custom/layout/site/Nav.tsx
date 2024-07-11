@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
-import { cn } from "@/lib/utils"
-import { Icons } from "@/components/ui/icons"
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/ui/icons";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,31 +13,30 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Startup Landscape",
     href: "/docs/startups/landscape",
-    description: "Overview of the startup ecosystem in the country."
+    description: "Overview of the startup ecosystem in the country.",
   },
   {
     title: "Startup Data",
     href: "/docs/startups/data",
-    description: "Access data and insights about startups."
+    description: "Access data and insights about startups.",
   },
   {
     title: "Success Stories",
     href: "/docs/startups/success-stories",
-    description: "Case studies and profiles of successful startups."
+    description: "Case studies and profiles of successful startups.",
   },
   {
     title: "Funding Opportunities",
     href: "/docs/startups/funding",
-    description: "Information on funding options available for startups."
+    description: "Information on funding options available for startups.",
   },
-]
-
+];
 
 export function Nav() {
   return (
@@ -55,22 +54,22 @@ export function Nav() {
                   >
                     <Icons.logo className="h-6 w-6" />
                     <div className="mb-2 mt-4 text-lg font-medium">
-                    Open Data
+                      Open Data
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                    Explore open data sources and the data marketplace
+                      Explore open data sources and the data marketplace
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Data Catalog">
-              Search and discover available datasets
+              <ListItem href="/docs" title="API Documentation">
+                Learn how to integrate with our APIs and SDKs
               </ListItem>
-              <ListItem href="/docs/installation" title="Data Analytics">
-              Leverage machine learning for insights and anomaly detection
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Data Governance">
-              Learn about data policies, access controls, and collaboration
+              <ListItem
+                href="/policies"
+                title="Data Governance"
+              >
+                Learn about data policies, access controls, and collaboration
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -94,13 +93,13 @@ export function Nav() {
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Research
+              Research
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -125,6 +124,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
