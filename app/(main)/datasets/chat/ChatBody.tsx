@@ -2,7 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 
-import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  CornerDownLeft,
+  Mic,
+  Paperclip,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 import { Label } from "@/components/ui/label";
@@ -15,9 +21,13 @@ import {
 
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { getMessages, sendMessage } from "@/services/endpoints/messages";
+import {
+  getMessages,
+  getSampleQuestions,
+  sendMessage,
+} from "@/services/endpoints/messages";
 import Message from "./Message";
 import { useForm } from "react-hook-form";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -30,6 +40,7 @@ const ChatBody = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm();
 
@@ -55,6 +66,9 @@ const ChatBody = () => {
     }
   };
 
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  const [isAwaitingMessage, setIsAwaitingMessage] = useState<boolean>(false);
   const handleSendMessage = async (values: any) => {
     try {
       const data = {
@@ -71,6 +85,7 @@ const ChatBody = () => {
         },
       ]);
       reset();
+      setIsAwaitingMessage(true);
       const response = await sendMessage(user?.id as string, data);
       if (response.data) {
         //CHANGE THE last message's BOT MESSAGE TO THE RESPONSE FROM THE SERVER
@@ -81,17 +96,64 @@ const ChatBody = () => {
             botMessage: response.data.botMessage,
             date: lastMessage.date,
           };
+          console.log("prevMessages", prevMessages);
           return prevMessages;
         });
+
       }
     } catch (error) {
       console.error(error);
     }
+    finally {
+      setIsAwaitingMessage(false);
+    }
   };
 
   useEffect(() => {
-    if (user && dataset) handleGetMessages(dataset as string);
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  const [sampleQuestions, setSampleQuestions] = useState<any>([]);
+  const [isLoadedSampleQuestions, setIsLoadedSampleQuestions] = useState(false);
+  const handleGetSampleQuestions = async (fileName: string) => {
+    try {
+      const data = {
+        fileName,
+        datasetId: dataset,
+      };
+      const response = await getSampleQuestions(user?.id as string, data);
+      if (response.data) {
+        setSampleQuestions(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoadedSampleQuestions(true);
+    }
+  };
+
+
+  useEffect(() => {
+    if (user && dataset) {
+      handleGetSampleQuestions(fileName as string);
+      handleGetMessages(dataset as string);
+    }
   }, [user, dataset]);
+
+  const [isShowSampleQuestions, setIsShowSampleQuestions] =
+    useState<boolean>(true);
+
+  const handleClickSampleQuestion = (question: string) => {
+    setValue("message", question);
+    handleSendMessage({ message: question });
+  };
+
+  const sampleQuestionsToShow = sampleQuestions?.filter((question:any)=>{
+    return !messages.some((message: any) => message.userMessage === question);
+  })
 
   return (
     <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-3">
@@ -118,9 +180,36 @@ const ChatBody = () => {
           };
           return <Message message={_message} />;
         })}
+
+        {sampleQuestionsToShow?.length > 0 && isLoadedSampleQuestions && (
+          <div className="flex flex-col gap-2 my-8">
+            <div
+              className="flex items-center gap-4 cursor-pointer"
+              onClick={() => setIsShowSampleQuestions((prev) => !prev)}
+            >
+              <span>{isShowSampleQuestions ? "Hide" : "Show"} prompts</span>
+              {isShowSampleQuestions ? <ChevronUp /> : <ChevronDown />}
+            </div>
+            {isShowSampleQuestions && (
+              <div className="flex flex-wrap gap-4 py-4">
+                {sampleQuestionsToShow?.map((question: any, index: number) => (
+                  <div
+                    className="p-2 rounded-md text-sm bg-gray-300 cursor-pointer"
+                    onClick={() => {
+                      handleClickSampleQuestion(question);
+                    }}
+                  >
+                    {question}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
+      <div ref={bottomRef}/>
       <form
-        className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
+        className="sticky bottom-0 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
         x-chunk="dashboard-03-chunk-1"
         onSubmit={handleSubmit(handleSendMessage)}
       >
@@ -132,13 +221,14 @@ const ChatBody = () => {
           placeholder="Type your message here..."
           className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
           {...register("message", { required: true })}
+          readOnly={isAwaitingMessage}
         />
         <div className="flex items-center p-3 pt-0">
           <Button
             type="submit"
             size="sm"
             className="ml-auto gap-1.5"
-            disabled={isSubmitted}
+            disabled={isAwaitingMessage}
           >
             {isSubmitting ? (
               <>

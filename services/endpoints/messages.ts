@@ -15,3 +15,12 @@ export const getMessages = async (userId: string, datasetId: string) => {
     },
   });
 };
+
+
+export const getSampleQuestions = async (userId: string, data: any) => {
+  return await api.post(`/messages/sample-questions/`, data, {
+    headers: {
+      Authorization: `Bearer ${userId}`,
+    },
+  });
+}
