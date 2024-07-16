@@ -43,7 +43,7 @@ const Tools = () => {
   return (
     <section className="relative">
       <div
-        className="absolute inset-0 bg-gray-100 pointer-events-none mb-16"
+        className="absolute inset-0 pointer-events-none mb-16"
         aria-hidden="true"
       ></div>
       <div className="absolute left-0 right-0 m-auto w-px p-px h-20 bg-gray-200 transform -translate-y-1/2"></div>
@@ -52,7 +52,9 @@ const Tools = () => {
         <div className="pt-12 md:pt-20">
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="text-5xl font-bold mb-4">{keyFeatures.title} </h1>
+            <h1 className="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
+              {keyFeatures.title}{" "}
+            </h1>
             <p className="text-xl text-gray-600">{keyFeatures.description}</p>
           </div>
 
@@ -80,12 +82,12 @@ const Tools = () => {
                     }}
                   >
                     <div>
-                      <div className="font-bold leading-snug tracking-tight mb-1">
+                      <div className="font-bold leading-snug tracking-tight mb-1 text-[#0085CA]">
                         {item.title}
                       </div>
                       <div className="text-gray-600">{item.subtitle}</div>
                     </div>
-                    <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
+                    <div className="flex justify-center items-center w-8 h-8 bg-[#EF3340] text-white rounded-full shadow flex-shrink-0 ml-3">
                       <svg
                         className="w-3 h-3 fill-current"
                         viewBox="0 0 12 12"

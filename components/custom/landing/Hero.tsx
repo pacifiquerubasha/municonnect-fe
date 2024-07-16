@@ -1,5 +1,6 @@
 import { Link } from "@/lib/router-events";
 import { File, FileText, Package, Sheet } from "lucide-react";
+import { colors } from "@/lib/colors";
 import React from "react";
 
 const Hero = () => {
@@ -11,7 +12,7 @@ const Hero = () => {
       </p>
 
       <h1 className="hero mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        <span className="inline-block text-[16vw] sm:text-[15vw] lg:text-[10vw] font-display uppercase text-center tracking-tight leading-none relative z-10">
+        <span className={`inline-block text-[16vw] sm:text-[15vw] lg:text-[10vw] font-display uppercase text-center tracking-tight leading-none relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]`}>
         Unlock the Power
         <svg
               aria-hidden="true"

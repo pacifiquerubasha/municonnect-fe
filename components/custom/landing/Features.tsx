@@ -3,7 +3,7 @@ import React from "react";
 const Features = () => {
   return (
     <>
-      <h2 className="pt-40 mb-1 text-2xl font-semibold tracking-tighter text-center text-black lg:text-7xl md:text-6xl">
+      <h2 className="pt-40 text-2xl font-semibold tracking-tighter text-center text-black lg:text-7xl lg:leading-[150%] md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
         Empowering Startups.
       </h2>
       <br></br>
@@ -14,7 +14,7 @@ const Features = () => {
       <div className="pt-12 pb-24 max-w-4xl mx-auto fsac4 md:px-1 px-3">
         <div className="ktq4">
           <img className="w-10" src="/vercel.svg"></img>
-          <h3 className="pt-3 font-semibold text-lg text-black">
+          <h3 className="pt-3 font-semibold text-lg text-[#EF3340]">
             Tech Startups
           </h3>
           <p className="pt-2 value-text text-black fkrr1">
@@ -24,7 +24,7 @@ const Features = () => {
         </div>
         <div className="ktq4">
           <img className="w-10" src="/vercel.svg"></img>
-          <h3 className="pt-3 font-semibold text-lg text-black">
+          <h3 className="pt-3 font-semibold text-lg text-[#EF3340]">
             Agritech Startups
           </h3>
           <p className="pt-2 value-text text-black fkrr1">
@@ -34,7 +34,7 @@ const Features = () => {
         </div>
         <div className="ktq4">
           <img className="w-10" src="/vercel.svg"></img>
-          <h3 className="pt-3 font-semibold text-lg text-black">
+          <h3 className="pt-3 font-semibold text-lg text-[#EF3340]">
             HealthTech Startups
           </h3>
           <p className="pt-2 value-text text-black fkrr1">
@@ -44,7 +44,7 @@ const Features = () => {
         </div>
         <div className="ktq4">
           <img className="w-10" src="/vercel.svg"></img>
-          <h3 className="pt-3 font-semibold text-lg text-black">
+          <h3 className="pt-3 font-semibold text-lg text-[#EF3340]">
             FinTech Startups
           </h3>
           <p className="pt-2 value-text text-black fkrr1">

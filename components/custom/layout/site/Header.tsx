@@ -5,6 +5,7 @@ import { Nav } from "./Nav";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { Spin } from "antd";
 import { Link } from "@/lib/router-events";
+import { colors } from "@/lib/colors";
 
 export default function Header() {
   const { isLoaded, user } = useUser();
@@ -17,7 +18,9 @@ export default function Header() {
       <div className="max-w-5xl mx-auto flex flex-wrap p-5 flex-col md:flex-row">
         <div className="flex flex-row items-center justify-between p-3 md:p-1">
           <Link href="/" className="flex text-3xl  font-medium mb-4 md:mb-0">
-            CongoMetrix
+            <span className={`text-[#0085CA]`}>Congo</span>
+            <span className={`text-[#FFD100]`}>M</span>
+            <span className={`text-[#EF3340]`}>etrix</span>
           </Link>
           <button
             className=" pb-4 cursor-pointer leading-none px-3 py-1 md:hidden outline-none focus:outline-none content-end ml-auto"

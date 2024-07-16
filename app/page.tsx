@@ -14,12 +14,12 @@ export default function Home() {
   return (
     <SiteLayout>
       <Hero />
-      <About />
+      {/* <About /> */}
       <Tools />
       <Features />
-      <Explore />
-      <Team />
-      <Testimonials />
+      {/* <Explore /> */}
+      {/* <Team />. */}
+      {/* <Testimonials /> */}
       <Faq />
       <Subscribe />
     </SiteLayout>
