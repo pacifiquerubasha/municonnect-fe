@@ -14,7 +14,7 @@ const Message = ({
   return (
     <div>
 
-      <div className="flex justify-end mb-4 cursor-pointer">
+      <div className="flex justify-end mb-4">
         <div className="flex max-w-96 lg:max-w-[40%] bg-black text-white rounded-lg p-3 gap-3">
           <p>{message?.userMessage}</p>
         </div>
@@ -30,7 +30,7 @@ const Message = ({
         </div>
       </div>
 
-      <div className="flex mb-4 cursor-pointer">
+      <div className="flex mb-4">
         <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
           <img
             src="https://placehold.co/200x/000000/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato"

@@ -117,6 +117,7 @@ const ChatBody = () => {
   const [isLoadedSampleQuestions, setIsLoadedSampleQuestions] = useState(false);
   const handleGetSampleQuestions = async (fileName: string) => {
     try {
+      setIsLoadedSampleQuestions(false);
       const data = {
         fileName,
         datasetId: dataset,
@@ -159,7 +160,7 @@ const ChatBody = () => {
         Output
       </Badge>
       <div className="flex-1 mt-8">
-        {!isLoadedMessages && (
+        {(!isLoadedMessages && !isLoadedSampleQuestions) && (
           <>
             {new Array(5).fill(0).map((_, index) => (
               <div className="flex flex-col gap-4">
@@ -182,7 +183,7 @@ const ChatBody = () => {
         {sampleQuestionsToShow?.length > 0 && isLoadedSampleQuestions && (
           <div className="flex flex-col gap-2 my-8">
             <div
-              className="flex items-center gap-4 cursor-pointer"
+              className="flex items-center gap-4"
               onClick={() => setIsShowSampleQuestions((prev) => !prev)}
             >
               <span>{isShowSampleQuestions ? "Hide" : "Show"} prompts</span>

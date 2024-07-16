@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import useNotify from "@/hooks/useNotify";
+import { formatFileSize } from "@/lib/utils";
 import { AppContext } from "@/providers/ContextProvider";
 
 import { sampleDashboardDatasets } from "@/samples/samples";
@@ -93,18 +94,20 @@ const DatasetsTable: React.FC<Props> = ({
                 onClick={() => setSelectedDataset(dataset)}
               >
                 <TableCell>
-                  <div className="font-medium">{dataset.name}</div>
+                  <div className="font-medium truncate max-w-[15rem]">
+                    {dataset.name}
+                  </div>
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
                   {dataset.domain}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  <Badge className="text-xs" variant="secondary">
+                  <Badge className={`${dataset.isPrivate ? "bg-red-100 text-red-800" : "bg-blue-100 text-blue-800"}`} variant="secondary">
                     {dataset.isPrivate ? "Private" : "Public"}
                   </Badge>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {dataset.fileSize}
+                  {formatFileSize(dataset.fileSize)}
                 </TableCell>
                 <TableCell className="text-right">{dataset.numRows}</TableCell>
                 <TableCell className="hidden sm:table-cell">
@@ -119,7 +122,9 @@ const DatasetsTable: React.FC<Props> = ({
                       </Button>
                     </DialogTrigger>
                   ) : (
-                    <Badge className="text-xs" variant="secondary">
+                    <Badge
+                      className={`text-xs`}
+                    >
                       {dataset.isApproved ? "Approved" : "Pending"}
                     </Badge>
                   )}

@@ -3,7 +3,7 @@ import React from "react";
 const Features = () => {
   return (
     <>
-      <h2 className="pt-40 text-2xl font-semibold tracking-tighter text-center text-black lg:text-7xl lg:leading-[150%] md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
+      <h2 className="pt-56 text-2xl font-semibold tracking-tighter text-center text-black lg:text-7xl lg:leading-[150%] md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
         Empowering Startups.
       </h2>
       <br></br>

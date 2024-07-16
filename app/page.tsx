@@ -16,12 +16,12 @@ export default function Home() {
       <Hero />
       {/* <About /> */}
       <Tools />
-      <Features />
+      {/* <Features /> */}
       {/* <Explore /> */}
       {/* <Team />. */}
       {/* <Testimonials /> */}
-      <Faq />
-      <Subscribe />
+      {/* <Faq /> */}
+      {/* <Subscribe /> */}
     </SiteLayout>
   );
 }

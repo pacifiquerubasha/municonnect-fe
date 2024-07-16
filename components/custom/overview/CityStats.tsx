@@ -80,11 +80,11 @@ const CityStats = () => {
   };
 
   React.useEffect(() => {
-    // if (selectedCity) {
-    //   handleGetCityAirQuality(selectedCity.city);
-    //   handleGetCityInfo(selectedCity.city);
-    //   handleGetCityWeather(selectedCity.latitude, selectedCity.longitude);
-    // }
+    if (selectedCity) {
+      handleGetCityAirQuality(selectedCity.city);
+      handleGetCityInfo(selectedCity.city);
+      handleGetCityWeather(selectedCity.latitude, selectedCity.longitude);
+    }
   }, [selectedCity]);
 
   return (

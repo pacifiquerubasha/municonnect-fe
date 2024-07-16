@@ -3,14 +3,6 @@ import { Building2, CircleCheck, FileCog, Scale, ShieldPlus } from "lucide-react
 import React from "react";
 
 const Overview = ({ dataset }: { dataset: any }) => {
-  const tags = [
-    "Money Supply",
-    "Central Bank",
-    "UAE",
-    "Economy",
-    "Currency",
-    "Deposits",
-  ];
 
   return (
     <div>
@@ -52,7 +44,7 @@ const Overview = ({ dataset }: { dataset: any }) => {
         </p>
       </div> */}
       <div className="my-5">
-        <h3 className="opacity-[70%]">Summary</h3>
+        <h3 className="text-[#FFD100]">Summary</h3>
         <p className="mt-2 text-sm">{dataset?.summary || "Not available"}</p>
       </div>
     </div>

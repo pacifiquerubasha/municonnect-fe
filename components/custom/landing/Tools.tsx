@@ -8,46 +8,34 @@ const Tools = () => {
 
   const tabs = useRef<HTMLDivElement>(null);
 
-  const heightFix = () => {
-    if (tabs.current && tabs.current.parentElement)
-      tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`;
-  };
-
-  useEffect(() => {
-    heightFix();
-  }, [activeTab]);
-
   const keyFeatures = {
     title: "Comprehensive Data and Datasets",
     description:
       "Explore features that provide seamless access to integrated municipal data, advanced analytics, and open data platforms.",
     items: [
       {
-        title: "Seamless Integration",
+        title: "Data Hub",
         subtitle:
-          "Integrate data from multiple municipal services for informed decision-making and strategic planning.",
+          "Access and download open datasets, explore information about cities in Congo, and view a list of startups.",
+        image: "/datahub.png",
       },
       {
-        title: "Advanced Analytics",
+        title: "Developer Tools",
         subtitle:
-          "Utilize machine learning algorithms to gain insights and detect anomalies in municipal data.",
+          "APIs for accessing public datasets and integrating them into third-party applications.",
+        image: "/developers.png",
       },
       {
-        title: "Open Data Platform",
+        title: "Interactive Data Portal",
         subtitle:
-          "Access a range of open data sources and a dynamic data marketplace for comprehensive information.",
+          "Users can upload their datasets and interact with all platform data through natural language queries.",
+        image: "/natural.png",
       },
     ],
   };
 
   return (
     <section className="relative">
-      <div
-        className="absolute inset-0 pointer-events-none mb-16"
-        aria-hidden="true"
-      ></div>
-      <div className="absolute left-0 right-0 m-auto w-px p-px h-20 bg-gray-200 transform -translate-y-1/2"></div>
-
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-12 md:pt-20">
           {/* Section header */}
@@ -62,7 +50,7 @@ const Tools = () => {
           <div className="md:grid md:grid-cols-12 md:gap-6">
             {/* Content */}
             <div
-              className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 md:mt-6"
+              className="max-w-xl md:max-w-none md:w-full mx-auto my-auto md:col-span-7 lg:col-span-6 md:mt-6"
               data-aos="fade-right"
             >
               {/* Tabs buttons */}
@@ -102,97 +90,33 @@ const Tools = () => {
             </div>
 
             {/* Tabs items */}
-            <div className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 md:order-1">
-              <div className="transition-all">
-                <div
-                  className="relative flex flex-col text-center lg:text-right"
-                  data-aos="zoom-y-out"
-                  ref={tabs}
-                >
-                  {/* Item 1 */}
-                  <div className="w-full">
-                    <div
-                      className={`transition ease-in-out duration-700 transform order-first ${
-                        activeTab === 1
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-16 absolute"
-                      }`}
-                      style={{ display: activeTab === 1 ? "block" : "none" }}
-                    >
-                      <div className="relative inline-flex flex-col">
-                        <Image
-                          className="md:max-w-none mx-auto rounded"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={462}
-                          alt="Features bg"
-                        />
-                        <Image
-                          className="md:max-w-none absolute w-full left-0 transform animate-float"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={44}
-                          alt="Element"
-                          style={{ top: "30%" }}
-                        />
-                      </div>
-                    </div>
 
-                    <div
-                      className={`transition ease-in-out duration-700 transform order-first ${
-                        activeTab === 2
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-16 absolute"
-                      }`}
-                      style={{ display: activeTab === 2 ? "block" : "none" }}
-                    >
-                      <div className="relative inline-flex flex-col">
-                        <Image
-                          className="md:max-w-none mx-auto rounded"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={462}
-                          alt="Features bg"
-                        />
-                        <Image
-                          className="md:max-w-none absolute w-full left-0 transform animate-float"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={44}
-                          alt="Element"
-                          style={{ top: "30%" }}
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      className={`transition ease-in-out duration-700 transform order-first ${
-                        activeTab === 3
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-16 absolute"
-                      }`}
-                      style={{ display: activeTab === 3 ? "block" : "none" }}
-                    >
-                      <div className="relative inline-flex flex-col">
-                        <Image
-                          className="md:max-w-none mx-auto rounded"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={462}
-                          alt="Features bg"
-                        />
-                        <Image
-                          className="md:max-w-none absolute w-full left-0 transform animate-float"
-                          src={"/features-bg.png"}
-                          width={500}
-                          height={44}
-                          alt="Element"
-                          style={{ top: "30%" }}
-                        />
-                      </div>
+            <div
+              className="max-w-xl md:max-w-none md:w-full mx-auto my-auto md:col-span-7 lg:col-span-6 md:mt-6"
+              data-aos="zoom-y-out"
+              ref={tabs}
+            >
+              <div className="w-full">
+                {keyFeatures.items.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`transition ease-in-out duration-700`}
+                    style={{
+                      display: activeTab === index + 1 ? "block" : "none",
+                    }}
+                  >
+                    <div className="relative inline-flex flex-col ">
+                      <Image
+                        src={item.image}
+                        width={500}
+                        height={550}
+                        alt="Features bg"
+                        className="mx-auto w-[100%] overflow-hidden rounded"
+                      />
                     </div>
                   </div>
-                </div>
+                ))}
+                
               </div>
             </div>
           </div>
