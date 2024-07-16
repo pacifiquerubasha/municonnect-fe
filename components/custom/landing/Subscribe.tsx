@@ -5,7 +5,7 @@ const Subscribe = () => {
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <div className="pt-24 md:pt-36">
-          <h1 className="mb-5 text-5xl font-bold text-black">
+          <h1 className="mb-5 text-5xl font-bold text-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
             Subscribe to our newsletter
           </h1>
           <h1 className="mb-9 text-2xl font-semibold text-gray-900">

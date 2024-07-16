@@ -12,7 +12,7 @@ const Faq = () => {
               <span className="mb-2 block text-lg font-semibold text-primary">
                 FAQ
               </span>
-              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
+              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px] text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">
                 Any Questions? Look Here
               </h2>
               <p className="text-base text-body-color dark:text-dark-6">

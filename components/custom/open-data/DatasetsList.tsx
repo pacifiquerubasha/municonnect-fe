@@ -76,14 +76,14 @@ const DatasetsList = ({
         {datasetsToShow?.map((dataset: any, index: any) => (
           <div className="flex justify-between items-center gap-5 p-2 rounded-md border">
             <div className="flex gap-2 items-center">
-              <FileSpreadsheetIcon />
+              <FileSpreadsheetIcon color="green" />
               <div className="flex flex-col text-xs">
-                <h5 className="font-semibold leading-tight">{dataset?.name}</h5>
+                <h5 className="font-semibold leading-tight text-[#0085CA]">{dataset?.name}</h5>
                 <p className="text-xs">{dataset?.description}</p>
               </div>
             </div>
             <div className="flex gap-2">
-              <Button ref={tourRef} asChild size="sm" className="gap-1">
+              <Button ref={tourRef} asChild size="sm" className="gap-1 bg-[#0085CA]">
                 <Link href={`/open-data/${dataset?._id}`}>
                   View More
                   <ArrowUpRight className="h-4 w-4" />

@@ -125,7 +125,7 @@ const page = () => {
       {isLoaded && isLoadedStats ? (
         <>
           <div className="flex flex-col mb-4 max-w-5xl py-24 border rounded-lg bg-slate-200 w-full justify-center items-center">
-            <h1 className="text-3xl font-bold mb-1">Open Data Platform</h1>
+            <h1 className="text-3xl font-bold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD100] via-[#0085CA] to-[#EF3340]">Open Data Platform</h1>
             <p className="text-md mb-12">
               Explore our comprehensive list of datasets available for download
               and analysis.
