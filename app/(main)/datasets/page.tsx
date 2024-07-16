@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import { File, ListFilter, PlusCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -102,15 +102,15 @@ export function Datasets() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
-                    <CardTitle>Datasets</CardTitle>
+                    <CardTitle className="text-[#0085CA]">Datasets</CardTitle>
                     <CardDescription>
                       Explore and manage your datasets
                     </CardDescription>
                   </div>
-                  <Button size="sm" className="h-7 gap-1">
+                  <Button size="sm" className="h-7 gap-1 bg-[#0085CA]">
                     <PlusCircle className="h-3.5 w-3.5" />
                     <Link href={"/datasets/add"}>
-                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                      <span className="sr-only  sm:not-sr-only sm:whitespace-nowrap">
                         Add Dataset
                       </span>
                     </Link>

@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/utils";
 import { Tag } from "antd";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import React from "react";
 import { siteMetadata } from "@/lib/metadata";
 import Header from "@/components/custom/layout/site/Header";

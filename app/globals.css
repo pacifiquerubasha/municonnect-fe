@@ -120,3 +120,15 @@
 .fkrr1 {
   font-family: "Inter", sans-serif;
 }
+
+.ant-statistic-content-suffix{
+  font-size: 0.8rem;
+}
+
+.text-popover-foreground{
+  z-index: 10 !important;
+}
+
+.leaflet-container{
+  z-index: 0 !important
+}

@@ -11,7 +11,7 @@ import {
   getDatasetsStats,
   getPublicDatasets,
 } from "@/services/endpoints/datasets";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 import type { GetRef, TourProps } from "antd";
 import { Button, Divider, Space, Tour } from "antd";
 

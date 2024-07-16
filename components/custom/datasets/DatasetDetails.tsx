@@ -31,7 +31,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "antd";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 import { useState } from "react";
 import {
   getDatasetSummary,
@@ -102,7 +102,7 @@ const DatasetDetails: React.FC<Props> = ({
         <>
           <CardHeader className="flex flex-row items-start gap-4 bg-muted/50">
             <div className="grid gap-0.5">
-              <CardTitle className="group flex items-start gap-2 text-lg">
+              <CardTitle className="group flex items-start gap-2 text-lg text-[#0085CA]">
                 {selectedDataset.name}{" "}
               </CardTitle>
               <CardDescription>
@@ -137,7 +137,7 @@ const DatasetDetails: React.FC<Props> = ({
               )}
               <Button
                 size="sm"                
-                className="h-8 gap-1"
+                className="h-8 gap-1 bg-[#FFD100] text-[#EF3340] font-bold"
                 onClick={() =>
                   navigate(
                     `/datasets/chat?dataset=${selectedDataset._id}&name=${fileName}`
@@ -225,7 +225,7 @@ const DatasetDetails: React.FC<Props> = ({
                 {!(summary || selectedDataset.summary) &&
                   user?.id === selectedDataset?.owner && (
                     <Sparkles
-                      className="h-3.5 w-3.5 cursor-pointer"
+                      className="h-3.5 w-3.5 cursor-pointer text-[#FFD100]"
                       onClick={handleGetSummary}
                     />
                   )}

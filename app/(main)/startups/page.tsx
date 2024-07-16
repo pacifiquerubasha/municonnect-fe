@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Cpu, PlusCircle } from "lucide-react";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AddStartup from "./AddStartup";
 import { getStartups } from "@/services/endpoints/startups";
@@ -12,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Flex } from "antd";
 import { startupIndustries } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 
 const Startups = () => {
   const { user, isSignedIn } = useUser();

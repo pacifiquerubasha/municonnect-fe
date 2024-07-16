@@ -1,10 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { ChevronLeft, Package, PlusCircle } from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -44,11 +40,11 @@ import { ReloadIcon, UploadIcon } from "@radix-ui/react-icons";
 
 import type { UploadProps } from "antd";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { createDataset } from "@/services/endpoints/datasets";
 import useNotify from "@/hooks/useNotify";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "@/lib/router-events";
 
 const { Dragger } = Upload;
 

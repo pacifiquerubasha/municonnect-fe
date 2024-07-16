@@ -12,7 +12,7 @@ import {
 import { formatFileSize } from "@/lib/utils";
 import { increaseDownloads } from "@/services/endpoints/datasets";
 import { ArrowUpRight, FileSpreadsheetIcon, ListFilter } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import React, { useEffect, useState } from "react";
 
 const DatasetsList = ({

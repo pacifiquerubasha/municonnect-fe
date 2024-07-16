@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Nav } from "./Nav";
-import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { Spin } from "antd";
+import { Link } from "@/lib/router-events";
 
 export default function Header() {
   const { isLoaded, user } = useUser();
@@ -57,7 +57,7 @@ export default function Header() {
           ) : (
             <>
               {user ? (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-sm">
                   <Link href="/overview">Dashboard</Link>
                   <UserButton />
                 </div>

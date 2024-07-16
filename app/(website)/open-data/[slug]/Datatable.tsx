@@ -24,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addRating, increaseDownloads } from "@/services/endpoints/datasets";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 
 const Datatable = ({ dataset }: { dataset: any }) => {
   const [csvData, setCsvData] = useState<any[]>([]);
@@ -112,14 +112,14 @@ const Datatable = ({ dataset }: { dataset: any }) => {
     <div className="flex flex-col gap-5">
       <Stats dataset={dataset} />
       <div className="flex flex-col gap-2">
-        <h1 className="text-xl">Main Data table</h1>
+        <h1 className="text-xl text-[#0085CA]">Main Data table</h1>
         <div className="flex justify-between items-center gap-5 my-4">
           <div className="flex gap-5 items-center text-sm">
             <Popover>
               <PopoverTrigger
                 onClick={() => copyTextToClipboard(window.location.href)}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-[#EF3340]">
                   Share: <Share2 width={15} />
                 </div>
               </PopoverTrigger>
@@ -129,7 +129,7 @@ const Datatable = ({ dataset }: { dataset: any }) => {
             </Popover>
             <Popover>
               <PopoverTrigger asChild>
-                <div className="flex items-center gap-2 cursor-pointer">
+                <div className="flex items-center gap-2 cursor-pointer text-[#0085CA]">
                   Cite: <Quote width={15} />
                 </div>
               </PopoverTrigger>

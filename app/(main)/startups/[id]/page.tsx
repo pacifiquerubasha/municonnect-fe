@@ -3,7 +3,7 @@
 import { getStartup } from "@/services/endpoints/startups";
 import { CaretLeftIcon } from "@radix-ui/react-icons";
 import { Skeleton } from "antd";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { start } from "repl";

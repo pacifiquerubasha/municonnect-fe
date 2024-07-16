@@ -1,5 +1,5 @@
 import { Tag } from "antd";
-import { Building2, FileCog, Scale, ShieldPlus } from "lucide-react";
+import { Building2, CircleCheck, FileCog, Scale, ShieldPlus } from "lucide-react";
 import React from "react";
 
 const Overview = ({ dataset }: { dataset: any }) => {
@@ -14,11 +14,12 @@ const Overview = ({ dataset }: { dataset: any }) => {
 
   return (
     <div>
-      <h1 className="text-2xl">{dataset?.name}</h1>
+      <h1 className="text-2xl text-[#0085CA]">{dataset?.name}</h1>
       <div className="flex gap-5 items-center mt-4">
         <div className="flex gap-1 items-center text-xs">
           <Building2 width={12} height={12} />
           <span>{dataset?.owner?.fullName}</span>
+          {dataset?.owner?.isVerified && <CircleCheck color="#207ef8" strokeWidth={3} size={14}/>}
         </div>
         <div className="flex gap-1 items-center text-xs">
           <ShieldPlus width={12} height={12} />
@@ -34,7 +35,7 @@ const Overview = ({ dataset }: { dataset: any }) => {
         </div>
       </div>
       <div className="my-10">
-        <h3>Description</h3>
+        <h3 className="opacity-[70%]">Description</h3>
         <p className="mt-2 text-sm">{dataset?.description}</p>
         <div className="flex flex-wrap mt-5">
           {dataset?.tags.map((tag: string, index: number) => (
@@ -51,7 +52,7 @@ const Overview = ({ dataset }: { dataset: any }) => {
         </p>
       </div> */}
       <div className="my-5">
-        <h3>Summary</h3>
+        <h3 className="opacity-[70%]">Summary</h3>
         <p className="mt-2 text-sm">{dataset?.summary || "Not available"}</p>
       </div>
     </div>

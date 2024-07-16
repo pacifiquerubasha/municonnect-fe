@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,7 +16,7 @@ import { useUser } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { createUser } from "@/services/endpoints/users";
 import useNotify from "@/hooks/useNotify";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/router-events";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import {
   Select,

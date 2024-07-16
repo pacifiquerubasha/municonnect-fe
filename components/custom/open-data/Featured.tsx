@@ -5,7 +5,7 @@ import {
   DownloadIcon,
   LucideDownload,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import React from "react";
 
 const Featured = ({ datasets }: { datasets: any }) => {

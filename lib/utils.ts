@@ -33,6 +33,7 @@ import {
   Zap,
 } from "lucide-react";
 import { twMerge } from "tailwind-merge";
+import { BaseCity } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -352,10 +353,11 @@ export const formatFileSize = (size: number): string => {
 };
 
 export const formatNumber = (number: number): string => {
+  if(!number) return "0"
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-export function copyTextToClipboard(text:string) {
+export function copyTextToClipboard(text: string) {
   navigator.clipboard
     .writeText(text)
     .then(() => {
@@ -389,9 +391,9 @@ export function generateHarvardCitation(dataset: DatasetInfo): string {
 
   return `${formatOwnerName(owner?.fullName)} (${new Date(
     releaseDate
-  ).getFullYear()}). ${name}. ${description}. [Dataset] ${licence}. Available at: ${files?.mainFile} (Accessed: ${new Date().toLocaleDateString(
-    "en-GB"
-  )}).`;
+  ).getFullYear()}). ${name}. ${description}. [Dataset] ${licence}. Available at: ${
+    files?.mainFile
+  } (Accessed: ${new Date().toLocaleDateString("en-GB")}).`;
 }
 
 export const startupIndustries = [
@@ -520,3 +522,68 @@ export const startupIndustries = [
     icon: Cable,
   },
 ];
+
+export const cities: BaseCity[] = [
+  { city: "Kinshasa", latitude: -4.3219, longitude: 15.3119 },
+  { city: "Mbuji-Mayi", latitude: -6.15, longitude: 23.6 },
+  { city: "Kananga", latitude: -5.897, longitude: 22.4488 },
+  { city: "Lubumbashi", latitude: -11.6647, longitude: 27.4794 },
+  { city: "Katako-Kombe", latitude: -3.4, longitude: 24.42 },
+  { city: "Mbandaka", latitude: 0.0478, longitude: 18.2558 },
+  { city: "Bukavu", latitude: -2.5, longitude: 28.8667 },
+  { city: "Kisangani", latitude: 0.5167, longitude: 25.2 },
+  { city: "Kibanseke Première", latitude: -4.4419, longitude: 15.395 },
+  { city: "Bunia", latitude: 1.5667, longitude: 30.25 },
+  { city: "Tshikapa", latitude: -6.4167, longitude: 20.8 },
+  { city: "Uvira", latitude: -3.4, longitude: 29.15 },
+  { city: "Likasi", latitude: -10.9833, longitude: 26.7333 },
+  { city: "Kolwezi", latitude: -10.7167, longitude: 25.4667 },
+  { city: "Kikwit", latitude: -5.0386, longitude: 18.8181 },
+  { city: "Ndjili", latitude: -4.4089, longitude: 15.3775 },
+  { city: "Kisenzi", latitude: -4.4094, longitude: 15.3425 },
+  { city: "Matadi", latitude: -5.8167, longitude: 13.4833 },
+  { city: "Goma", latitude: -1.6794, longitude: 29.2336 },
+  { city: "Kabinda", latitude: -6.13, longitude: 24.48 },
+  { city: "Beni", latitude: 0.5, longitude: 29.4667 },
+  { city: "Butembo", latitude: 0.15, longitude: 29.2833 },
+  { city: "Gbadolite", latitude: 4.2833, longitude: 21.0167 },
+  { city: "Mwene-Ditu", latitude: -7, longitude: 23.45 },
+  { city: "Isiro", latitude: 2.7833, longitude: 27.6167 },
+  { city: "Kindu", latitude: -2.95, longitude: 25.95 },
+  { city: "Boma", latitude: -5.85, longitude: 13.05 },
+  { city: "Kamina", latitude: -8.7386, longitude: 24.9906 },
+  { city: "Moanda", latitude: -5.9342, longitude: 12.3494 },
+  { city: "Kalemie", latitude: -5.9128, longitude: 29.1906 },
+  { city: "Wamba", latitude: 2.1442, longitude: 27.9929 },
+  { city: "Gandajika", latitude: -6.75, longitude: 23.9667 },
+  { city: "Bandundu", latitude: -3.3167, longitude: 17.3667 },
+  { city: "Nsele", latitude: -4.3744, longitude: 15.4947 },
+  { city: "Gemena", latitude: 3.25, longitude: 19.7667 },
+  { city: "Kipushi", latitude: -11.7625, longitude: 27.25 },
+  { city: "Baraka", latitude: -4.1041, longitude: 29.094 },
+  { city: "Ilebo", latitude: -4.3167, longitude: 20.6 },
+  { city: "Kongolo", latitude: -5.4, longitude: 27 },
+  { city: "Bumba", latitude: 2.1844, longitude: 22.4703 },
+  { city: "Lingwala", latitude: -4.3203, longitude: 15.2983 },
+  { city: "Tshilenge", latitude: -6.25, longitude: 23.7667 },
+  { city: "Lisala", latitude: 2.1486, longitude: 21.5133 },
+  { city: "Buta", latitude: 2.8, longitude: 24.7333 },
+  { city: "Inongo", latitude: -1.95, longitude: 18.2667 },
+  { city: "Kenge", latitude: -4.8056, longitude: 17.0417 },
+  { city: "Lusambo", latitude: -4.9729, longitude: 23.4368 },
+  { city: "Boende", latitude: -0.281, longitude: 20.876 },
+  { city: "Djugu", latitude: 1.9184, longitude: 30.5019 },
+  { city: "Drodro", latitude: 1.7667, longitude: 30.5333 },
+];
+export const weatherIcons: { [key: string]: string } = {
+  wind_speed: "/wind.svg",
+  wind_degrees: "/wind_degree.svg",
+  temp: "/temp.svg",
+  humidity: "/humidity.svg",
+  sunset: "/sunset.svg",
+  min_temp: "/temp_min.svg",
+  cloud_pct: "/cloud.svg",
+  feels_like: "/feels_like.png",
+  sunrise: "/sunrise.svg",
+  max_temp: "/temp_max.svg",
+};

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/router-events";
 import React from "react";
 
 const Categories = ({
