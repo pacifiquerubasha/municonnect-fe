@@ -36,7 +36,7 @@ jobs:
         run: docker rm -f municonnect-fe-container || true
       - name: Run Docker Container
         run: |
-          docker run -d -p 5173:3000 \
+          docker run -d -p 3000:3000 \
             -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
             -e CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
             -e NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL }} \
