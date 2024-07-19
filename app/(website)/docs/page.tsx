@@ -49,7 +49,7 @@ const page = () => {
           </Title>
           <Paragraph>Endpoint:</Paragraph>
           <Text code copyable>
-            GET /api/datasets/public
+            GET /api/dev/get-municonnect-datasets
           </Text>
           <Paragraph>Headers:</Paragraph>
           <Text code copyable>
@@ -116,7 +116,7 @@ const page = () => {
           <Paragraph>Retrieve statistics about datasets.</Paragraph>
           <Paragraph>Endpoint:</Paragraph>
           <Text code copyable>
-            GET /api/datasets/statistics
+            GET /api/dev/get-municonnect-datasets-stats
           </Text>
           <Paragraph>Headers:</Paragraph>
           <Text code copyable>

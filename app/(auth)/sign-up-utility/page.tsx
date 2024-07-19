@@ -59,9 +59,6 @@ function SignUpUtility() {
     }
   };
 
-  React.useEffect(() => {
-    console.log(user);
-  }, []);
 
   return (
     <form

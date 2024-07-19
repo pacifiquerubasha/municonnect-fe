@@ -63,6 +63,7 @@ export function Register() {
                               variant="outline"
                               type="button"
                               disabled={isGlobalLoading}
+                              className="text-[#EF3340]"
                             >
                               <Clerk.Loading scope="provider:google">
                                 {(isLoading) =>
@@ -70,7 +71,7 @@ export function Register() {
                                     <Icons.spinner className="size-4 animate-spin" />
                                   ) : (
                                     <>
-                                      <Icons.google className="mr-2 size-4" />
+                                      <Icons.google className="mr-2 size-4 " />
                                       Google
                                     </>
                                   )
@@ -104,7 +105,7 @@ export function Register() {
                       <CardFooter>
                         <div className="grid w-full gap-y-4">
                           <SignUp.Action submit asChild>
-                            <Button disabled={isGlobalLoading}>
+                            <Button disabled={isGlobalLoading} className="bg-[#0085CA]">
                               <Clerk.Loading>
                                 {(isLoading) => {
                                   return isLoading ? (
@@ -145,7 +146,7 @@ export function Register() {
                       <CardFooter>
                         <div className="grid w-full gap-y-4">
                           <SignUp.Action submit asChild>
-                            <Button disabled={isGlobalLoading}>
+                            <Button disabled={isGlobalLoading} className="bg-[#0085CA]">
                               <Clerk.Loading>
                                 {(isLoading) => {
                                   return isLoading ? (
@@ -234,7 +235,7 @@ export function Register() {
                         <CardFooter>
                           <div className="grid w-full gap-y-4">
                             <SignUp.Action submit asChild>
-                              <Button disabled={isGlobalLoading}>
+                              <Button disabled={isGlobalLoading} className="bg-[#0085CA]">
                                 <Clerk.Loading>
                                   {(isLoading) => {
                                     return isLoading ? (

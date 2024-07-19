@@ -240,8 +240,8 @@ const AddDataset = () => {
                           <SelectValue placeholder="Select licence" />
                         </SelectTrigger>
                         <SelectContent>
-                          {licenses.map((license) => (
-                            <SelectItem value={license}>{license}</SelectItem>
+                          {licenses.map((license, i) => (
+                            <SelectItem key={i} value={license}>{license}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>

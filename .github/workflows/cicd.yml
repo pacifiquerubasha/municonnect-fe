@@ -1,0 +1,46 @@
+name: Deploy municonnect-fe
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
+      - name: Build Docker Image
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
+            --build-arg CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
+            --build-arg NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL }} \
+            --build-arg NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL }} \
+            --build-arg NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} \
+            --build-arg NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
+            -t pacifiquerubasha/municonnect-fe .
+      - name: Publish Image to docker hub
+        run: docker push pacifiquerubasha/municonnect-fe:latest
+ 
+  deploy:
+    needs: build
+    runs-on: self-hosted 
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull pacifiquerubasha/municonnect-fe:latest
+      - name: Delete old container
+        run: docker rm -f municonnect-fe-container || true
+      - name: Run Docker Container
+        run: |
+          docker run -d -p 5173:3000 \
+            -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
+            -e CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
+            -e NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL }} \
+            -e NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL }} \
+            -e NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }} \
+            -e NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }} \
+            --name municonnect-fe-container pacifiquerubasha/municonnect-fe

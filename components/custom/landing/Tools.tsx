@@ -67,6 +67,7 @@ const Tools = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       setActiveTab(index + 1);
+                      console.log("INDEX+1", index+1)
                     }}
                   >
                     <div>

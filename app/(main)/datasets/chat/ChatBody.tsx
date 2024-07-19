@@ -163,7 +163,7 @@ const ChatBody = () => {
         {(!isLoadedMessages && !isLoadedSampleQuestions) && (
           <>
             {new Array(5).fill(0).map((_, index) => (
-              <div className="flex flex-col gap-4">
+              <div key={index} className="flex flex-col gap-4">
                 <Skeleton className="h-12 w-[40%] ml-auto" />
                 <Skeleton className="h-12 w-[40%]" />
               </div>
@@ -177,7 +177,7 @@ const ChatBody = () => {
             botMessage: message.botMessage,
             date: message.date,
           };
-          return <Message message={_message} />;
+          return <Message key={index} message={_message} />;
         })}
 
         {sampleQuestionsToShow?.length > 0 && isLoadedSampleQuestions && (
@@ -193,6 +193,7 @@ const ChatBody = () => {
               <div className="flex flex-wrap gap-4 py-4">
                 {sampleQuestionsToShow?.map((question: any, index: number) => (
                   <div
+                  key={index}
                     className="p-2 rounded-md text-sm bg-gray-300 cursor-pointer"
                     onClick={() => {
                       handleClickSampleQuestion(question);

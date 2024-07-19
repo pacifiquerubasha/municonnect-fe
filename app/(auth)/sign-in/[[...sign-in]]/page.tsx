@@ -29,7 +29,12 @@ export default function SignInPage() {
                   <SignIn.Step name="start">
                     <Card className="w-full sm:w-96">
                       <CardHeader>
-                        <CardTitle>Sign in to Acme Co</CardTitle>
+                        <CardTitle>
+                          Sign in to{" "}
+                          <span className={`text-[#0085CA]`}>Congo</span>
+                          <span className={`text-[#FFD100]`}>M</span>
+                          <span className={`text-[#EF3340]`}>etrix</span>
+                        </CardTitle>
                         <CardDescription>
                           Welcome back! Please sign in to continue
                         </CardDescription>
@@ -63,6 +68,7 @@ export default function SignInPage() {
                               variant="outline"
                               type="button"
                               disabled={isGlobalLoading}
+                              className="text-[#EF3340]"
                             >
                               <Clerk.Loading scope="provider:google">
                                 {(isLoading) =>
@@ -95,7 +101,10 @@ export default function SignInPage() {
                       <CardFooter>
                         <div className="grid w-full gap-y-4">
                           <SignIn.Action submit asChild>
-                            <Button disabled={isGlobalLoading}>
+                            <Button
+                              disabled={isGlobalLoading}
+                              className="bg-[#0085CA]"
+                            >
                               <Clerk.Loading>
                                 {(isLoading) => {
                                   return isLoading ? (
@@ -193,7 +202,10 @@ export default function SignInPage() {
                         <CardFooter>
                           <div className="grid w-full gap-y-4">
                             <SignIn.Action submit asChild>
-                              <Button disabled={isGlobalLoading}>
+                              <Button
+                                disabled={isGlobalLoading}
+                                className="bg-[#0085CA]"
+                              >
                                 <Clerk.Loading>
                                   {(isLoading) => {
                                     return isLoading ? (
@@ -274,7 +286,10 @@ export default function SignInPage() {
                         <CardFooter>
                           <div className="grid w-full gap-y-4">
                             <SignIn.Action submit asChild>
-                              <Button disabled={isGlobalLoading}>
+                              <Button
+                                disabled={isGlobalLoading}
+                                className="bg-[#0085CA]"
+                              >
                                 <Clerk.Loading>
                                   {(isLoading) => {
                                     return isLoading ? (
