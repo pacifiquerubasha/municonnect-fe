@@ -4,7 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import ContextProvider from "@/providers/ContextProvider";
 import { HandleOnComplete } from "@/lib/router-events";
-
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider allowedRedirectOrigins={["http://ec2-44-204-240-212.compute-1.amazonaws.com/"]}>
       <ContextProvider>
         <html lang="en">
           <body className={inter.className}>
             {children}
             <HandleOnComplete />
+            <Analytics />
+            <SpeedInsights/>
           </body>
         </html>
       </ContextProvider>

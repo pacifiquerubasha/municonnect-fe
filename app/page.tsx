@@ -10,7 +10,6 @@ import Tools from "@/components/custom/landing/Tools";
 import SiteLayout from "@/components/custom/layout/site/SiteLayout";
 
 export default function Home() {
-  console.log("KEY", process.env.NEXT_API_KEY);
   return (
     <SiteLayout>
       <Hero />

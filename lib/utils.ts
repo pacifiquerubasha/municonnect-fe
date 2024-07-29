@@ -378,7 +378,8 @@ interface DatasetInfo {
 }
 
 function formatOwnerName(owner: string): string {
-  const parts = owner.split(" ");
+  if (!owner) return "";
+  const parts = owner?.split(" ");
   if (parts.length < 2) return owner;
   const lastName = parts[parts.length - 1];
   const firstName = parts.slice(0, -1).join(" ");
