@@ -189,13 +189,13 @@ const page = () => {
           <Title level={2}>Example Requests</Title>
           <Paragraph>Curl Example: Get Public Datasets</Paragraph>
           <Text code copyable>
-            curl -H "x-api-key: YOUR_API_KEY"
-            https://municonnect.render.com/api/dev/get-municonnect-datasets
+            curl -k -H "x-api-key: YOUR_API_KEY"
+            https://ec2-44-204-240-212.compute-1.amazonaws.com/api/dev/get-municonnect-datasets
           </Text>
           <Paragraph>Curl Example: Get Dataset Statistics</Paragraph>
           <Text code copyable>
-            curl -H "x-api-key: YOUR_API_KEY"
-            https://api.yourplatform.com/api/get-municonnect-datasets-stats
+            curl -k -H "x-api-key: YOUR_API_KEY"
+            https://ec2-44-204-240-212.compute-1.amazonaws.com/api/get-municonnect-datasets-stats
           </Text>
           <Title level={2}>Contact and Support</Title>
           <Paragraph>

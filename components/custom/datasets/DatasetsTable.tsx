@@ -81,10 +81,10 @@ const DatasetsTable: React.FC<Props> = ({
             <TableRow>
               <TableHead>Dataset</TableHead>
               <TableHead className="hidden sm:table-cell">Category</TableHead>
-              <TableHead className="hidden sm:table-cell">Status</TableHead>
+              <TableHead className="hidden sm:table-cell">Visibility</TableHead>
               <TableHead className="hidden md:table-cell">Size</TableHead>
               <TableHead className="text-right">Rows</TableHead>
-              <TableHead className="hidden sm:table-cell">Visibility</TableHead>
+              <TableHead className="hidden sm:table-cell">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

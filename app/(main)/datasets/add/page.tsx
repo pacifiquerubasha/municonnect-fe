@@ -93,7 +93,7 @@ const AddDataset = () => {
   const props: UploadProps = {
     name: "file",
     multiple: true,
-    action: "http://localhost:8080/upload/",
+    action: `${process.env.NEXT_PUBLIC_FASTAPI_URL}/upload/`,
     onChange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -241,7 +241,9 @@ const AddDataset = () => {
                         </SelectTrigger>
                         <SelectContent>
                           {licenses.map((license, i) => (
-                            <SelectItem key={i} value={license}>{license}</SelectItem>
+                            <SelectItem key={i} value={license}>
+                              {license}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>

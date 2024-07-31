@@ -58,9 +58,13 @@ const DatasetDetails: React.FC<Props> = ({
   const handleGetSummary = async () => {
     try {
       setIsGettingSummary(true);
-      const response = await getDatasetSummary(user?.id as string, selectedDataset._id);
+      const response = await getDatasetSummary(
+        user?.id as string,
+        selectedDataset._id
+      );
       if (response.data) {
         setSummary(response.data.summary);
+        notify("Summary generated successfully", "success");
         console.log(response.data.summary);
       }
     } catch (error) {
@@ -76,7 +80,7 @@ const DatasetDetails: React.FC<Props> = ({
         user?.id as string,
         selectedDataset._id
       );
-      if (response.data) {
+      if (response.status === 200) {
         notify("Visibility changed successfully", "success");
         setShouldRefresh((prev: boolean) => !prev);
         console.log(response.data);
@@ -136,7 +140,7 @@ const DatasetDetails: React.FC<Props> = ({
                 </DropdownMenu>
               )}
               <Button
-                size="sm"                
+                size="sm"
                 className="h-8 gap-1 bg-[#FFD100] text-[#EF3340] font-bold"
                 onClick={() =>
                   navigate(
@@ -253,6 +257,7 @@ const DatasetDetails: React.FC<Props> = ({
           </CardFooter>
         </>
       )}
+      {contextHolder}
     </Card>
   );
 };

@@ -50,7 +50,9 @@ export default function AddStartup({
         setShouldRefresh((prev) => !prev);
         notify("Startup added successfully", "success");
         reset();
-        setOpen(false);
+        setTimeout(() => {
+          setOpen(false);
+        }, 1000);
       }
     } catch (error) {
       notify("An error occurred", "error");
@@ -61,7 +63,7 @@ export default function AddStartup({
   return (
     <>
       {contextHolder}
-      <DialogContent className="sm:max-w-[425px] lg:max-w-[600px]">
+      <DialogContent className="sm:max-w-[425px] lg:max-w-[600px] z-50">
         <DialogHeader>
           <DialogTitle>ADD STARTUP</DialogTitle>
           <DialogDescription></DialogDescription>
@@ -90,7 +92,7 @@ export default function AddStartup({
               <SelectTrigger id="category" aria-label="Select category">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-100">
                 {startupIndustries.map((industry) => (
                   <SelectItem value={industry.name}>{industry.name}</SelectItem>
                 ))}
@@ -165,6 +167,7 @@ export default function AddStartup({
                 id="marketValue"
                 placeholder="marketValue"
                 {...register("marketValue")}
+                type="number"
               />
             </div>
           </div>
@@ -180,13 +183,17 @@ export default function AddStartup({
                 <SelectValue placeholder="Select stage" />
               </SelectTrigger>
               <SelectContent>
-                {["ideation", "validation", "growth", "established"].map(
-                  (stage) => (
-                    <SelectItem value={stage} className="capitalize">
-                      {stage}
-                    </SelectItem>
-                  )
-                )}
+                {[
+                  "ideation",
+                  "validation",
+                  "growth",
+                  "established",
+                  "undisclosed",
+                ].map((stage) => (
+                  <SelectItem value={stage} className="capitalize">
+                    {stage}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
