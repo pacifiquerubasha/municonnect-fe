@@ -17,8 +17,8 @@ To install and set up the project locally, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repository.git
-    cd your-repository
+    git clone https://github.com/pacifiquerubasha/municonnect-fe
+    cd municonnect-fe
     ```
 
 2. Install the dependencies:
